@@ -16,6 +16,13 @@ export const Container = styled(FlexRow)`
   align-items: center;
   justify-content: flex-start;
 `
+export const BottomContainer = styled(FlexRow)`
+  width: 300px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 14%;
+`
 
 export const StyledLink = styled(NavLink)`
   padding: 10px;
@@ -30,6 +37,10 @@ export const StyledLink = styled(NavLink)`
 
   &:hover {
     color: yellow;
+  }
+
+  svg {
+    margin-right: 5px;
   }
 `
 Logo.defaultProps = {
