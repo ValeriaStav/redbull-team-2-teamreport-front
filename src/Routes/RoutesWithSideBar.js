@@ -6,6 +6,8 @@ import HomePage from '../Pages/Home Page'
 import InviteYourTeam from '../Pages/Invite Your Team'
 import TeamReports from '../Pages/Team Reports'
 import Sidebar from "../Components/Sidebar"
+import Header from "../Components/Header"
+import {FlexCol} from "../styles"
 
 import { RoutesWrapper } from './styles'
 
