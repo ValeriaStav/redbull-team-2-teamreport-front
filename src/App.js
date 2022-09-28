@@ -7,8 +7,6 @@ import {
 import RoutesWithSideBar from './Routes/RoutesWithSideBar'
 import { routesNoSideBar } from './Routes/RoutesNoSideBar'
 
-import "./App.css"
-
 const App = () => {
   return (
     <>

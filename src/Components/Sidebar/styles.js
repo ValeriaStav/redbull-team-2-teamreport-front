@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import { NavLink } from 'react-router-dom'
 import { FlexRow } from '../../styles'
-import SideBarLogo from './SideBarLogo.png'
+import SideBarLogo from '../../assets/SideBarLogo.png'
 
 export const Logo = styled.img`
   width: 90%;
