@@ -2,13 +2,14 @@ import React, { useState } from "react"
 import { useDispatch } from "react-redux"
 import PropTypes from "prop-types"
 import { useNavigate } from "react-router-dom"
-import { FormContainer, StyledForm, StyledTitle, SignInButton, WhiteTitle, OverlayContainer, StyledOverlay, MarginedTitle, OverlayRightPanel, StyledP, StyledBody, ContentContainer} from './styles'
+import { FormContainer, StyledForm, StyledTitle, SignInButton, WhiteTitle, OverlayContainer, StyledOverlay, MarginedTitle, OverlayRightPanel, StyledP, StyledBody, ContentContainer} from '../Login Page/styles'
 
 import InputField from "../../Components/InputField"
 
-const LoginPage = (props) => {
+const CompanyRegistration = (props) => {
   const navigate = useNavigate()
   // const dispatch = useDispatch()
+  const [companyName, setCompanyName] = useState(null)
   const [email, setEmail] = useState(null)
   const [password, setPassword] = useState(null)
 
@@ -18,8 +19,8 @@ const LoginPage = (props) => {
     // Здесь диспатчить экшен с имейлом и паролем, а в саге, которая слушает этот экшен, отсылать аксиос запрос
   }
 
-  const signUp = () => {
-    navigate('/company-registration')
+  const signIn = () => {
+    navigate('/login')
   }
 
   return (
@@ -28,26 +29,26 @@ const LoginPage = (props) => {
         <FormContainer>
           <StyledForm>
             <StyledTitle>
-              Sign In
+              Company Registration
             </StyledTitle>
+        <InputField placeholder='Company Name' type='email' onChange={setEmail}></InputField>
         <InputField placeholder='Email Address' type='email' onChange={setEmail}></InputField>
       <InputField placeholder='Password' type='password' onChange={setPassword}></InputField>
-      <MarginedTitle> Forgot Password ?</MarginedTitle>
      
-      <SignInButton onClick={submit}>Sign In</SignInButton>
+      <SignInButton onClick={submit}>Sign Up</SignInButton>
           </StyledForm>
         </FormContainer>
         <OverlayContainer>
           <StyledOverlay>
             <OverlayRightPanel>
               <WhiteTitle>
-              Hello, Friend!
+              Welcome Back!
               </WhiteTitle>
 
               <StyledP>
-              Enter your company details and start improving your business with us
+              To keep connected with us please login with your personal info
               </StyledP>
-              <SignInButton onClick={signUp}>Sign Up</SignInButton>
+              <SignInButton onClick={signIn}>Sign In</SignInButton>
             </OverlayRightPanel>
           </StyledOverlay>
         </OverlayContainer>
@@ -56,6 +57,6 @@ const LoginPage = (props) => {
   )
 }
 
-LoginPage.propTypes = {}
+CompanyRegistration.propTypes = {}
 
-export default LoginPage
+export default CompanyRegistration
