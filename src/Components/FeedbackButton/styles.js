@@ -9,8 +9,11 @@ export const StyledButton = styled.div`
   align-items: center;
   color: white;
   font-weight: 600;
-  transform: rotate(-90deg);
+  transform: translate(calc((95px - 35px)/2),0) rotate(-90deg);
   cursor: pointer;
+  position: absolute;
+  top: 700px;
+  right: 0px;
 
   svg {
     margin-right: 5px;

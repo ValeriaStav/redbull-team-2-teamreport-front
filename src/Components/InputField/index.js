@@ -9,16 +9,16 @@ const InputField = ({ placeholder, type, onChange }) => {
 
   return (
     <>
-    { window.location.pathname === '/team-member-registration'? <WidthDiv>
-      <StyledInput placeholder={placeholder} type={type} onChange={handleChange}></StyledInput>
-    </WidthDiv>: <div>
-      <StyledInput placeholder={placeholder} type={type} onChange={handleChange}></StyledInput>
-    </div>
-    }
+      {window.location.pathname === '/team-member-registration' ? <WidthDiv>
+        <StyledInput placeholder={placeholder} type={type} onChange={handleChange}></StyledInput>
+      </WidthDiv> : <div>
+        <StyledInput placeholder={placeholder} type={type} onChange={handleChange}></StyledInput>
+      </div>
+      }
     </>
-    )
-  }
-  
+  )
+}
+
 
 
 InputField.propTypes = {}
