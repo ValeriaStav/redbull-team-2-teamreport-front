@@ -9,5 +9,10 @@ width: 100%;
 `
 
 export const WidthDiv = styled.div`
-width: 80% `
+  width: 80%;
+`
+
+export const InputLabel = styled.div`
+  font-weight: 600;
+`
   
