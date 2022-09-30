@@ -26,7 +26,7 @@ const InviteYourTeam = props => {
     <FlexCol>
       <Header Content={(
         <Title>
-          Invite your te
+          Invite your team
         </Title>
       )} />
       <HelpButton />
