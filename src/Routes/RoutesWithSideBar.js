@@ -5,6 +5,7 @@ import {
 import HomePage from '../Pages/Home Page'
 import InviteYourTeam from '../Pages/Invite Your Team'
 import TeamReports from '../Pages/Team Reports'
+import FillOutReport from '../Pages/Fill Out Report'
 import Sidebar from "../Components/Sidebar"
 import Header from "../Components/Header"
 import { FlexCol } from "../styles"
@@ -23,6 +24,7 @@ const RoutesWithSideBar = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/invite" element={<InviteYourTeam />} />
         <Route path="/team-reports" element={<TeamReports />} />
+        <Route path="/fill" element={<FillOutReport />} />
         
       </Routes>
       </ColumnContainer>

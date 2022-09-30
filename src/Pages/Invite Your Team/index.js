@@ -6,7 +6,12 @@ import FeedbackButton from '../../Components/FeedbackButton'
 import InputField from '../../Components/InputField'
 import YellowButton from '../../Components/YellowButton'
 
-import { Form, HeaderText, Subheader } from './styles'
+import {
+  Title,
+  Form,
+  HeaderText,
+  Subheader,
+} from './styles'
 
 const InviteYourTeam = props => {
   const [firstName, setFirstName] = useState('')
@@ -19,7 +24,11 @@ const InviteYourTeam = props => {
 
   return (
     <FlexCol>
-      <Header Content={("help")} />
+      <Header Content={(
+        <Title>
+          Invite your te
+        </Title>
+      )} />
       <HelpButton />
       <FeedbackButton />
       <Form>
