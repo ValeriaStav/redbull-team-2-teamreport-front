@@ -2,20 +2,19 @@ const validate = validations => {
   const errors = {}
 
   validations.forEach(validator => {
-    if (typeof validator.functions === 'function') {
-      const validationError = validator.functions(validator.value)
+    const singleValidation = (validationFunction, value, name) => {
+      const validationError = validationFunction(value)
 
       if (validationError) {
-        errors[validator.name] = validationError
+        errors[name] = validationError
       }
+    }
+    if (typeof validator.functions === 'function') {
+      singleValidation(validator.functions, validator.value, validator.name)
     }
     if (typeof validator.functions === 'object') {
       validator.functions.forEach(validationFunction => {
-        const validationError = validationFunction(validator.value)
-
-        if (validationError) {
-          errors[validator.name] = validationError
-        }
+        singleValidation(validationFunction, validator.value, validator.name)
       })
     }
   })
