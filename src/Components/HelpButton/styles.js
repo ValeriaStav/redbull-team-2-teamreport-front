@@ -11,7 +11,7 @@ export const StyledButton = styled.div`
   color: #2c2c2c;
   font-weight: 600;
   cursor: pointer;
-  position: absolute;
+  position: fixed;
   bottom: 20px;
   right: 50px;
 
