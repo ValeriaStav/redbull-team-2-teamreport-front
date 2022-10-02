@@ -2,7 +2,6 @@ const validate = validations => {
   const errors = {}
 
   validations.forEach(validator => {
-    console.log('validator', validator)
     if (typeof validator.functions === 'function') {
       const validationError = validator.functions(validator.value)
 

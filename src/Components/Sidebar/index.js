@@ -1,18 +1,9 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import { Container, StyledLink, Logo, BottomContainer } from './styles'
 import { AiFillSetting } from 'react-icons/ai'
 import { BiExit } from 'react-icons/bi'
 
 const Sidebar = props => {
-  const navigate = useNavigate()
-  // console.log('window.location.pathname', window.location.pathname)
-
-  // const handleClick = (pathname) => {
-  //   history.push(pathname)
-  // }
-
   return (
     <Container>
       <Logo />
@@ -71,7 +62,5 @@ const Sidebar = props => {
     </Container>
   )
 }
-
-Sidebar.propTypes = {}
 
 export default Sidebar
