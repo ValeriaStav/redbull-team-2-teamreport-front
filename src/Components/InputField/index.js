@@ -1,31 +1,49 @@
-import React from "react"
-import PropTypes from "prop-types"
+import React from 'react'
+import PropTypes from 'prop-types'
 import { StyledInput, WidthDiv, InputLabel } from './styles'
 
-const InputField = ({ placeholder, type, onChange, label }) => {
-  const handleChange = (event) => {
-    onChange(event?.target?.value)
+const InputField = ({
+  placeholder,
+  type,
+  onChange,
+  label,
+  initialValue,
+  stylesOverride,
+  ...props
+}) => {
+  const handleChange = event => {
+    props.name ? onChange(event) : onChange(event?.target?.value)
   }
 
   return (
     <>
-      {label && (
-        <InputLabel>{label}</InputLabel>
-      )}
+      {label && <InputLabel>{label}</InputLabel>}
       {window.location.pathname === '/team-member-registration' ? (
         <WidthDiv>
-          <StyledInput placeholder={placeholder} type={type} onChange={handleChange}></StyledInput>
+          <StyledInput
+            stylesOverride={stylesOverride}
+            defaultValue={initialValue || ''}
+            placeholder={placeholder}
+            type={type}
+            onChange={handleChange}
+            {...props}
+          ></StyledInput>
         </WidthDiv>
       ) : (
         <div>
-          <StyledInput placeholder={placeholder} type={type} onChange={handleChange}></StyledInput>
+          <StyledInput
+            stylesOverride={stylesOverride}
+            defaultValue={initialValue || ''}
+            placeholder={placeholder}
+            type={type}
+            onChange={handleChange}
+            {...props}
+          ></StyledInput>
         </div>
       )}
     </>
   )
 }
-
-
 
 InputField.propTypes = {}
 

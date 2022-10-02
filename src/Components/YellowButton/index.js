@@ -1,11 +1,11 @@
 import React from 'react'
 import { StyledButton } from './styles'
 
-const YellowButton = ({ buttonText, children, onClick }) => {
+const YellowButton = ({ children, onClick, style, type }) => {
   return (
-    <StyledButton onClick={onClick || (() => {})}>
-      { children || 'OK'}
-    </StyledButton >
+    <StyledButton type={type} style={style} onClick={onClick || (() => {})}>
+      {children || 'OK'}
+    </StyledButton>
   )
 }
 
