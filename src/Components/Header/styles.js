@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 export const StyledHeader = styled.div`
   background-color: #323232;
-  min-height: 110px;
+  min-height: 140px;
   width: 100%;
   display: flex;
   flex-direction: column;
