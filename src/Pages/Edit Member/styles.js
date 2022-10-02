@@ -21,6 +21,7 @@ export const Subtitle = styled.div`
 export const MemberIcon = styled.div`
   padding: 20px;
   border-radius: 100%;
+  border: 2px solid white;
   background-color: #dddddd;
   font-size: 32px;
   color: black;
