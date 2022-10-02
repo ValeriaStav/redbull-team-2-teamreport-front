@@ -1,9 +1,12 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Container, StyledLink, Logo, BottomContainer } from './styles'
 import { AiFillSetting } from 'react-icons/ai'
 import { BiExit } from 'react-icons/bi'
 
 const Sidebar = props => {
+  const navigate = useNavigate()
+
   return (
     <Container>
       <Logo />
