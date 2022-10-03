@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Formik, ErrorMessage } from 'formik'
+
 import Header from '../../Components/Header'
 import { FlexCol } from '../../styles'
 import HelpButton from '../../Components/HelpButton'
@@ -9,6 +10,12 @@ import validate, {
   moreThanTwo,
   startsFromCapitalize,
 } from '../../utils/validators'
+import InputField from '../../Components/InputField'
+import { css } from 'styled-components'
+import YellowButton from '../../Components/YellowButton'
+import Error from '../../Components/Error'
+import WhiteButton from '../../Components/WhiteButton'
+import Modal from '../../Components/Modal'
 
 import {
   TitleContainer,
@@ -18,10 +25,6 @@ import {
   Container,
   Divider,
 } from './styles'
-import InputField from '../../Components/InputField'
-import { css } from 'styled-components'
-import YellowButton from '../../Components/YellowButton'
-import Error from '../../Components/Error'
 
 const stylesOverride = {
   border: '1px solid grey',
@@ -29,12 +32,36 @@ const stylesOverride = {
 
 const FillOutReport = () => {
   const { state: memberDetails } = useLocation()
-
+  const [isOpen, setOpen] = useState(false)
+  const [modalMessage, setModalMessage] = useState({
+    title: '',
+    subtitle: '',
+    tip: '',
+  })
   const { firstName, lastName, email, title } = memberDetails
 
   const handleSaveClick = submitValues => {
     console.log({ submitValues })
     // serve some axios request here
+  }
+
+  const handleOpenModalClick = type => {
+    if (type === 'leader') {
+      setModalMessage({
+        title: 'Edit Leader(s)',
+        subtitle:
+          'By default, the person who sent oyu the invite will receive your weekly report. You may also slect the person you report to directly as an additional leader.',
+        tip: 'Pro Tip: You can change who sees your report in your profile settings.',
+      })
+    }
+    if (type === 'member') {
+      setModalMessage({
+        title: 'Edit Member(s)',
+        subtitle: 'Some member stuff',
+        tip: "Pro Tip: Don't eat yellow snow.",
+      })
+    }
+    setOpen(true)
   }
 
   return (
@@ -127,8 +154,40 @@ const FillOutReport = () => {
           )}
         </Formik>
         <Divider>{firstName} reports to the following leaders:</Divider>
+        <WhiteButton
+          onClick={() => handleOpenModalClick('leader')}
+          style={{ width: '200px' }}
+        >
+          Edit Leader(s)
+        </WhiteButton>
         <Divider>The following members report to {firstName}:</Divider>
+        <WhiteButton
+          onClick={() => handleOpenModalClick('member')}
+          style={{ width: '200px' }}
+        >
+          Edit Member(s)
+        </WhiteButton>
         <Divider>{firstName}'s invite link</Divider>
+        {isOpen && (
+          <Modal setIsOpen={setOpen}>
+            <div
+              style={{
+                fontWeight: 900,
+                fontSize: '40px',
+                marginBottom: '15px',
+              }}
+            >
+              {modalMessage.title}
+            </div>
+            <div style={{ fontSize: '14px' }}>{modalMessage.subtitle}</div>
+            <div style={{ fontSize: '14px', marginTop: '20px' }}>
+              {modalMessage.tip}
+            </div>
+            {/* Add badges here */}
+            <InputField />
+            <YellowButton>Save Changes</YellowButton>
+          </Modal>
+        )}
       </Container>
     </FlexCol>
   )

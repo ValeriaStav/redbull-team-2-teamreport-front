@@ -13,10 +13,6 @@ import {
   Title,
   Subtitle,
   MembersContainer,
-  MemberCard,
-  MemberIcon,
-  MemberName,
-  EditButton,
 } from './styles'
 import { Divider } from '../Edit Member/styles'
 import validate, { moreThanTwo } from '../../utils/validators'

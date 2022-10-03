@@ -9,15 +9,15 @@ import Sidebar from '../Components/Sidebar'
 import Header from '../Components/Header'
 import { FlexCol } from '../styles'
 import HelpButton from '../Components/HelpButton'
-import { ColumnContainer } from './styles'
-
-import { RoutesWrapper } from './styles'
+import { ColumnContainer, Container } from './styles'
 
 const RoutesWithSideBar = () => {
+  // const Route = props => <RouterRoute {...props} />
+
   return (
-    <RoutesWrapper>
+    <ColumnContainer className="RouterWrapper">
       <Sidebar />
-      <ColumnContainer>
+      <Container>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/invite" element={<InviteYourTeam />} />
@@ -26,8 +26,8 @@ const RoutesWithSideBar = () => {
           <Route path="/fill/:id" element={<SeeMembers />} />
           <Route path="/edit-member/:id" element={<EditMember />} />
         </Routes>
-      </ColumnContainer>
-    </RoutesWrapper>
+      </Container>
+    </ColumnContainer>
   )
 }
 
