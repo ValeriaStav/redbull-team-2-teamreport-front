@@ -27,7 +27,7 @@ const Sidebar = props => {
       </StyledLink>
       <StyledLink
         active={
-          location.pathname === '/fill' ||
+          location.pathname.includes('/fill') ||
           location.pathname.includes('/edit-member')
         }
         to="/fill"

@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Formik, ErrorMessage } from 'formik'
 import Header from '../../Components/Header'
 import { FlexCol } from '../../styles'
 import HelpButton from '../../Components/HelpButton'
 import FeedbackButton from '../../Components/FeedbackButton'
 import InputField from '../../Components/InputField'
-import YellowButton from '../../Components/YellowButton'
+import WhiteButton from '../../Components/WhiteButton'
 
 import {
   TitleContainer,
@@ -17,43 +18,31 @@ import {
   MemberName,
   EditButton,
 } from './styles'
+import { Divider } from '../Edit Member/styles'
+import validate, { moreThanTwo } from '../../utils/validators'
 
-const memberMock = [
-  {
-    id: 1,
-    firstName: 'Alex',
-    lastName: 'Shneider',
-    email: 'email@anko.com',
-    title: 'CEO',
-  },
-  {
-    id: 2,
-    firstName: 'Tomas',
-    lastName: 'Kitty',
-    email: 'email@anko.com',
-    title: 'CTO',
-  },
-  {
-    id: 3,
-    firstName: 'Jerry',
-    lastName: 'Sneaks',
-    email: 'email@anko.com',
-    title: 'Developer',
-  },
-  {
-    id: 4,
-    firstName: 'Silvester',
-    lastName: "V'Stolovoy",
-    email: 'email@anko.com',
-    title: 'QA assistant',
-  },
-]
+const companyMock = {
+  id: 1,
+  name: 'ANKO Technology Corp',
+  date: 'January 2020',
+}
 
-const FillOutReport = props => {
+const stylesOverride = {
+  border: '1px solid #ffcd29',
+  borderRadius: '6px',
+  width: '400px',
+  backgroundColor: 'white',
+}
+
+const SeeMembers = props => {
   const navigate = useNavigate()
 
-  const handleEditClick = itemDetails => {
-    navigate(`/edit-member/${itemDetails.id}`, { state: itemDetails })
+  const handleSaveClick = values => {
+    console.log('values', values)
+  }
+
+  const handleSeeClick = () => {
+    navigate(`/fill/${companyMock.id}`)
   }
 
   return (
@@ -61,30 +50,58 @@ const FillOutReport = props => {
       <Header
         Content={
           <TitleContainer>
-            <Title>ANKO Technology Corp</Title>
-            <Subtitle>Joined January 2020</Subtitle>
+            <Title>{companyMock.name}</Title>
+            <Subtitle>Joined {companyMock.date}</Subtitle>
           </TitleContainer>
         }
       />
       <HelpButton />
       <FeedbackButton />
       <MembersContainer>
-        {memberMock.map(item => (
-          <MemberCard key={item.id}>
-            <div>
-              <MemberIcon>
-                {`${item.firstName[0]}${item.lastName[0]}`}
-              </MemberIcon>
-              <MemberName>{`${item.firstName} ${item.lastName}`}</MemberName>
-            </div>
-            <EditButton onClick={() => handleEditClick(item)}>Edit</EditButton>
-          </MemberCard>
-        ))}
+        <h1>Edit {companyMock.name}'s Information</h1>
+        <span>You may do whatever you want here!</span>
+        <Divider>Rename {companyMock.name}</Divider>
+        <Formik
+          onSubmit={handleSaveClick}
+          initialValues={{
+            name: companyMock.name,
+          }}
+          validate={values =>
+            validate([
+              {
+                name: 'name',
+                value: values.name,
+                functions: moreThanTwo,
+              },
+            ])
+          }
+        >
+          {({ values, handleSubmit, handleChange }) => (
+            <form onSubmit={handleSubmit}>
+              <InputField
+                name="title"
+                label="Change company name."
+                type="text"
+                onChange={handleChange}
+                initialValue={values.name}
+                component={InputField}
+                stylesOverride={stylesOverride}
+              />
+              <ErrorMessage name="title" component={Error} />
+              <WhiteButton type="submit">Save name change</WhiteButton>
+            </form>
+          )}
+        </Formik>
+        <Divider>See a list of {companyMock.name}'s team members</Divider>
+        <div style={{ margin: '10px 0 30px' }}>
+          If you need to edit a particular team member, you can see a complete
+          list of team members and visit their profile to make edits.
+          <b>You will not be able to see a team mamber's weekly report.</b>
+        </div>
+        <WhiteButton onClick={handleSeeClick}>See All Team Members</WhiteButton>
       </MembersContainer>
     </FlexCol>
   )
 }
 
-FillOutReport.propTypes = {}
-
-export default FillOutReport
+export default SeeMembers
