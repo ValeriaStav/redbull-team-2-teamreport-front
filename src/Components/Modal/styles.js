@@ -8,7 +8,7 @@ export const Wrapper = styled.div`
   top: 0;
   background-color: #ffffffbb;
   cursor: pointer;
-  z-index: 0;
+  z-index: 1;
 `
 
 export const Container = styled.div`
@@ -22,7 +22,7 @@ export const Container = styled.div`
   border-top: 2px solid #ffcd29;
   box-shadow: 0px 3px 5px 1px #bababa;
   cursor: default;
-  z-index: 1;
+  z-index: 2;
 `
 
 export const CloseIcon = styled.div`
