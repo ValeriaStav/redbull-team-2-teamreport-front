@@ -1,27 +1,26 @@
-import {
-  Routes,
-  Route,
-} from "react-router-dom"
-import HomePage from '../Pages/Home Page'
-import InviteYourTeam from '../Pages/Invite Your Team'
-import TeamReports from '../Pages/Team Reports'
-import Sidebar from "../Components/Sidebar"
-import Header from "../Components/Header"
-import {FlexCol} from "../styles"
+import { Routes, Route } from "react-router-dom";
+import HomePage from "../Pages/Home Page";
+import InviteYourTeam from "../Pages/Invite Your Team";
+import TeamReports from "../Pages/Team Reports";
+import MyReports from "../Pages/My Reports";
+import Sidebar from "../Components/Sidebar";
+import Header from "../Components/Header";
+import { FlexCol } from "../styles";
 
-import { RoutesWrapper } from './styles'
+import { RoutesWrapper } from "./styles";
 
 const RoutesWithSideBar = () => {
-  return (
-    <RoutesWrapper>
-      <Sidebar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/invite" element={<InviteYourTeam />} />
-        <Route path="/team-reports" element={<TeamReports />} />
-      </Routes>
-    </RoutesWrapper>
-  )
-}
+    return (
+        <RoutesWrapper>
+            <Sidebar />
+            <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/invite" element={<InviteYourTeam />} />
+                <Route path="/team-reports" element={<TeamReports />} />
+                <Route path="/reports" element={<MyReports />} />
+            </Routes>
+        </RoutesWrapper>
+    );
+};
 
-export default RoutesWithSideBar
+export default RoutesWithSideBar;

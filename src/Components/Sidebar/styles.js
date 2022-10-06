@@ -15,7 +15,7 @@ export const Container = styled(FlexRow)`
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    position: sticky;
+    position: fixed;
 `;
 export const BottomContainer = styled(FlexRow)`
     width: 300px;
