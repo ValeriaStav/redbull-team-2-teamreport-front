@@ -3,7 +3,7 @@ import HomePage from '../Pages/Home Page'
 import InviteYourTeam from '../Pages/Invite Your Team'
 import TeamReports from '../Pages/Team Reports'
 import SeeMembers from '../Pages/See Members'
-import FillOutReport from '../Pages/Fill Out Report'
+import MyCompany from '../Pages/My Company'
 import EditMember from '../Pages/Edit Member'
 import Sidebar from '../Components/Sidebar'
 import Header from '../Components/Header'
@@ -22,8 +22,8 @@ const RoutesWithSideBar = () => {
           <Route path="/" element={<HomePage />} />
           <Route path="/invite" element={<InviteYourTeam />} />
           <Route path="/team-reports" element={<TeamReports />} />
-          <Route path="/fill" element={<FillOutReport />} />
-          <Route path="/fill/:id" element={<SeeMembers />} />
+          <Route path="/my-company" element={<MyCompany />} />
+          <Route path="/my-company/:id" element={<SeeMembers />} />
           <Route path="/edit-member/:id" element={<EditMember />} />
         </Routes>
       </Container>

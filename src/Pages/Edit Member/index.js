@@ -50,7 +50,7 @@ const FillOutReport = () => {
       setModalMessage({
         title: 'Edit Leader(s)',
         subtitle:
-          'By default, the person who sent oyu the invite will receive your weekly report. You may also slect the person you report to directly as an additional leader.',
+          'By default, the person who sent oyu the invite will receive your weekly report. You may also select the person you report to directly as an additional leader.',
         tip: 'Pro Tip: You can change who sees your report in your profile settings.',
       })
     }
@@ -58,7 +58,7 @@ const FillOutReport = () => {
       setModalMessage({
         title: 'Edit Member(s)',
         subtitle: 'Some member stuff',
-        tip: "Pro Tip: Don't eat yellow snow.",
+        tip: "Pro Tip: You can change whose reports to see in your profile settings",
       })
     }
     setOpen(true)

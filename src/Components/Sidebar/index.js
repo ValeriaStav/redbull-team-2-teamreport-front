@@ -39,7 +39,12 @@ const Sidebar = props => {
           Back to Elite
         </StyledLink>
 
-        <StyledLink active={location.pathname === '/mycompany'} to="/mycompany">
+        <StyledLink active={         
+          location.pathname.includes('/my-company') ||
+          location.pathname.includes('/edit-member')
+        }
+        to="/my-company"
+      >
           My Company
         </StyledLink>
 

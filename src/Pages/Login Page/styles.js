@@ -18,6 +18,17 @@ export const StyledForm = styled.form`
 	height: 100%;
 	text-align: center;
 `
+
+export const StyledFormWrapper = styled.div`
+background-color: #FFFFFF;
+display: flex;
+align-items: center;
+justify-content: center;
+flex-direction: column;
+padding: 0 50px;
+height: 100%;
+text-align: center;
+`
 export const StyledTitle = styled.h1`
 font-weight: bold;
 margin: 0;
@@ -86,7 +97,7 @@ letter-spacing: 0.5px;
 margin: 20px 0 30px;
 `
 
-export const StyledBody = styled.body`
+export const StyledBody = styled.div`
 background: #f6f5f7;
 display: flex;
 justify-content: center;

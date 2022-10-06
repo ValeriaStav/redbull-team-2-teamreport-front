@@ -30,7 +30,7 @@ const stylesOverride = {
   backgroundColor: 'white',
 }
 
-const SeeMembers = props => {
+const MyCompany = props => {
   const navigate = useNavigate()
 
   const handleSaveClick = values => {
@@ -38,7 +38,7 @@ const SeeMembers = props => {
   }
 
   const handleSeeClick = () => {
-    navigate(`/fill/${companyMock.id}`)
+    navigate(`/my-company/${companyMock.id}`)
   }
 
   return (
@@ -100,4 +100,4 @@ const SeeMembers = props => {
   )
 }
 
-export default SeeMembers
+export default MyCompany
