@@ -1,7 +1,7 @@
-const InviteYourTeam = () => {
-  return (
-    <div>invite</div>
-  )
+const InviteYourTeam = props => {
+  return <></>
 }
+
+InviteYourTeam.propTypes = {}
 
 export default InviteYourTeam

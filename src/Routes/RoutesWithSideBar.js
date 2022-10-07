@@ -1,26 +1,33 @@
-import {
-  Routes,
-  Route,
-} from "react-router-dom"
+import { Routes, Route } from 'react-router-dom'
 import HomePage from '../Pages/Home Page'
 import InviteYourTeam from '../Pages/Invite Your Team'
 import TeamReports from '../Pages/Team Reports'
-import Sidebar from "../Components/Sidebar"
-import Header from "../Components/Header"
-import {FlexCol} from "../styles"
-
-import { RoutesWrapper } from './styles'
+import SeeMembers from '../Pages/See Members'
+import MyCompany from '../Pages/My Company'
+import EditMember from '../Pages/Edit Member'
+import Sidebar from '../Components/Sidebar'
+import Header from '../Components/Header'
+import { FlexCol } from '../styles'
+import HelpButton from '../Components/HelpButton'
+import { ColumnContainer, Container } from './styles'
 
 const RoutesWithSideBar = () => {
+  // const Route = props => <RouterRoute {...props} />
+
   return (
-    <RoutesWrapper>
+    <ColumnContainer className="RouterWrapper">
       <Sidebar />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/invite" element={<InviteYourTeam />} />
-        <Route path="/team-reports" element={<TeamReports />} />
-      </Routes>
-    </RoutesWrapper>
+      <Container>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/invite" element={<InviteYourTeam />} />
+          <Route path="/team-reports" element={<TeamReports />} />
+          <Route path="/my-company" element={<MyCompany />} />
+          <Route path="/my-company/:id" element={<SeeMembers />} />
+          <Route path="/edit-member/:id" element={<EditMember />} />
+        </Routes>
+      </Container>
+    </ColumnContainer>
   )
 }
 
