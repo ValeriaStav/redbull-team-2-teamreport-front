@@ -4,7 +4,6 @@ import { AiFillCaretRight } from "react-icons/ai";
 import Sidebar from "../../Components/Sidebar";
 import Header from "../../Components/Header";
 import { FlexCol } from "../../styles";
-import SideBarLogo from "../../assets/SideBarLogo.png";
 import {
     HeaderText,
     AccordionContent,
@@ -13,20 +12,14 @@ import {
     Button,
     Input,
 } from "./styles";
-import Accordion from "../../Accordion";
-import { Collapse } from "react-bootstrap";
 
 const InviteYourTeam = () => {
-    document.title = "Invite Your Team";
     const [open, setOpen] = useState(false);
     return (
         <FlexCol>
-            <Header
-                Content={<HeaderText>Invite Your Team</HeaderText>}
-            ></Header>
-
-            <Collapse in={open}>
-                <div id="example-collapse-text">
+            <Header Content={<HeaderText>Invite Your Team</HeaderText>} />
+            {open && (
+                <>
                     <AccordionItem>
                         <AccordionContent>
                             <strong>
@@ -39,24 +32,16 @@ const InviteYourTeam = () => {
                             </p>
                         </AccordionContent>
                     </AccordionItem>
-                </div>
-            </Collapse>
-            <FormItem>
-                <AccordionContent>
-                    <p>
-                        <AiFillCaretRight />
-                        The team member didn't receive yout invite?
-                    </p>
-                </AccordionContent>
-
-                {/* <AccordionContent>
-                    <p>
-                        Please check email address and then try sending the
-                        invitation again:
-                    </p>
-                </AccordionContent> */}
-            </FormItem>
-
+                    <FormItem>
+                        <AccordionContent>
+                            <p>
+                                <AiFillCaretRight />
+                                The team member didn't receive yout invite?
+                            </p>
+                        </AccordionContent>
+                    </FormItem>
+                </>
+            )}
             <AccordionItem>
                 <AccordionContent>
                     <strong>
@@ -74,7 +59,6 @@ const InviteYourTeam = () => {
                         class="form-control"
                         aria-label="First name"
                     />
-
                     <label for="exampleInputLastName1" class="form-label">
                         <strong>Last Name</strong>
                     </label>
@@ -83,7 +67,6 @@ const InviteYourTeam = () => {
                         class="form-control"
                         aria-label="Last name"
                     />
-
                     <label for="exampleInputEmail1" class="form-label">
                         <strong>Email</strong>
                     </label>
@@ -93,23 +76,11 @@ const InviteYourTeam = () => {
                         id="exampleInputEmail1"
                         aria-describedby="emailHelp"
                     />
-
-                    <a
-                        href={window.location.pathname === "/success"}
-                        to="/success"
-                    >
-                        <Button
-                            onClick={() => setOpen(!open)}
-                            aria-controls="example-collapse-text"
-                            aria-expanded={open}
-                        >
-                            Invite
-                        </Button>
-                    </a>
+                    <Button onClick={() => setOpen(true)}>Invite</Button>
+                    {/* //в My Reports true поменять на !isActive */}
                 </AccordionContent>
             </AccordionItem>
         </FlexCol>
     );
 };
-
 export default InviteYourTeam;

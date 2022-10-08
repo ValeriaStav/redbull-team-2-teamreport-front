@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import styled from "styled-components";
 
 export const HeaderText = styled.div`
@@ -12,7 +11,7 @@ export const HeaderText = styled.div`
     font-weight: 650;
 `;
 
-export const AccordionItem = styled.form`
+export const AccordionItem = styled.div`
     box-sizing: border-box;
     width: 50%;
     min-width: 500px;
@@ -20,7 +19,7 @@ export const AccordionItem = styled.form`
         rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
         rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
     border-radius: 0.375rem;
-    display: flex; //none || height: 0;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-content: stretch;
@@ -102,7 +101,3 @@ export const Button = styled.button`
         background: #ffca2c;
     }
 `;
-
-//export const [visible, setVisible] = useState(false);
-
-//<button type="submit" class="btn btn-primary fw-bold" data-bs-toggle="collapse" data-bs-target="#inviteSuccess" aria-expanded="true" aria-controls="inviteSuccess">Invite</button>
