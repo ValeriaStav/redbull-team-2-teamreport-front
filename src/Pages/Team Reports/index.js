@@ -1,10 +1,10 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Header from "../../Components/Header";
-import UserWithThreeStates from "../../Components/UserWithThreeStates";
-import {OptionsPanel, Switches, TextInHeader} from "./styles"
+import { Switches, HeaderText} from "./styles"
+import ReportsWithThreeStates from "../../Components/ReportsWithThreeStates";
 
 const TeamReports = () => {
-    const props = [
+    const propsP = [
         {
             userid: 1,
             username:"Antony Stark",
@@ -20,47 +20,51 @@ const TeamReports = () => {
             workload:2
         }
     ]
+    const [switcher, setSwitcher] = useState(1)
+
     return (
           <>
               <Header
                 Content={
                   <>
-                  <TextInHeader>
-                      Your team
-                      {props.length > 0
-                          ?
-                          <b> has {props.length} reports </b>
+                      <div>
+                          <Switches active={switcher < 3} onClick={() => setSwitcher(1)}>Immediate Team</Switches>
+                          <Switches active={switcher === 3} onClick={() => setSwitcher(3)}>Extended Team</Switches>
+                      </div>
+                      {switcher !== 3 ?
+                          <HeaderText>
+                              Your team
+                              {propsP.length > 0
+                                  ?
+                                  <b> has {propsP.length} reports </b>
+                                  :
+                                  <b> has not submitted </b>
+                              }
+                              reports this week
+                          </HeaderText>
                           :
-                          <b> has not submitted </b>
+                          <>
+                              <HeaderText><b>Weekly Report History</b></HeaderText>
+                              <p style={{color: "white", fontSize: 20, marginBottom: 0, paddingBottom:0}}>Get a bigger picture of how your team has been doing over time</p>
+                          </>
                       }
-                      reports this week
-                  </TextInHeader>
+
                   </>
                 }
               />
               <div style={{textAlign: "center", marginTop: 20}}>
-                  <Switches>
+                  <Switches active={switcher === 1} onClick={() => setSwitcher(1)}>
                     Previous Period
                   </Switches>
-                  <Switches>
+                  <Switches active={switcher === 2} onClick={() => setSwitcher(2)}>
                       Current Period
                   </Switches>
-                  <Switches>
+                  <Switches active={switcher === 3} onClick={() => setSwitcher(3)}>
                       Older Reports
                   </Switches>
               </div>
-              <div style={{textAlign: "center", fontSize: 18}}>
-                  <b>IMMEDIATE TEAM</b>
-                  <div style={{background: "yellow", padding: 4, marginInline: 760, marginTop: 20}}></div>
-              </div>
-              <OptionsPanel>
-                  <p style={{marginRight: 35}}>Morale</p>
-                  <p style={{marginRight: 25}}>Stress</p>
-                  <p style={{marginRight: 100}}>Workload</p>
-              </OptionsPanel>
-              {props.map(prop =>
-                  <UserWithThreeStates prop={prop} key={prop.userid}/>
-              )}
+
+              <ReportsWithThreeStates switcher={switcher}/>
 
           </>
 
