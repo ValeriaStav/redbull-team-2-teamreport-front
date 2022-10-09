@@ -6,6 +6,7 @@ export const FlexRow = styled.div`
 export const FlexCol = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #eeeeee;
+  background-color: #f6f7f8;
   height: 100%;
+  height: fit-content;
 `
