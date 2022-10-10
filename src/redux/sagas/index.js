@@ -1,5 +1,6 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
-import jwt from 'jsonwebtoken';
+import jwt_decode from "jwt-decode";
+
 
 import axiosInstance from './axios';
 
@@ -36,11 +37,10 @@ function* fetchUserData(action) {
 
 function* signin(action) {
   try {
-    const signIn = async () => axiosInstance.post('/auth/signin', { ...action.payload });
+    const signIn = async () => axiosInstance.post('api/Authentication/login', { ...action.payload });
     const response = yield call(signIn);
     const responseData = response.data;
-    const [, responseToken] = responseData.token.split(' ');
-    const decodedToken = jwt.decode(responseToken);
+    const decodedToken = jwt_decode(responseData);
     const {
       firstName,
       lastName,
@@ -49,7 +49,7 @@ function* signin(action) {
       id,
       command,
     } = decodedToken;
-    localStorage.setItem('userToken', responseToken);
+    localStorage.setItem('userToken', responseData);
     yield put({ type: 'SIGNIN_USER_SUCCESS' });
     yield put({
       type: 'SET_CURRENT_USER',
@@ -68,10 +68,13 @@ function* signin(action) {
 }
 function* signupUser(action) {
   try {
-    const { email, password } = action.payload;
-    const signUp = async () => axiosInstance.post('/auth/signupuser', { ...action.payload });
+    const { email, password, navigate } = action.payload;
+    console.log('action.payload', action.payload)
+
+    const signUp = async () => axiosInstance.post('api/Authentication/registration', { ...action.payload });
     yield call(signUp);
-    yield put({ type: 'SIGNIN_USER', payload: { email, password } });
+    yield put({ type: 'SIGNIN_USER', payload: { password, email } });
+     navigate("/");
   } catch (error) {
     console.log('error', error);
   }

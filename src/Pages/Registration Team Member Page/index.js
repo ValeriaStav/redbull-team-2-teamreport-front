@@ -21,7 +21,7 @@ import InputField from "../../Components/InputField"
 
 const TeamRegistrationPage = (props) => {
   const navigate = useNavigate()
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const [firstName, setFirstName] = useState(null)
   const [lastName, setLastName] = useState(null)
   const [title, setTitle] = useState(null)
@@ -29,9 +29,7 @@ const TeamRegistrationPage = (props) => {
   const [password, setPassword] = useState(null)
 
   const submit = () => {
-    navigate("/")
-    // dispatch({ type: "SEND_LOGIN_CREDENTIALS", value: { email, password } })
-    // Здесь диспатчить экшен с имейлом и паролем, а в саге, которая слушает этот экшен, отсылать аксиос запрос
+    dispatch({ type: "SIGNUP_USER", payload: { firstName, lastName, email, title, password, navigate }})
   }
 
   const signIn = () => {
@@ -70,7 +68,7 @@ const TeamRegistrationPage = (props) => {
               onChange={setPassword}
             ></InputField>
 
-            <SignInButton onClick={submit}>Sign Up</SignInButton>
+            <SignInButton onClick={submit} type="button">Sign Up</SignInButton>
           </StyledForm>
         </FormContainer>
         <OverlayContainer>

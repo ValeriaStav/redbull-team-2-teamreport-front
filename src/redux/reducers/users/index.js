@@ -1,8 +1,9 @@
-import jwt from 'jsonwebtoken';
+import jwt_decode from "jwt-decode";
+
 
 const localStorageToken = localStorage.getItem('userToken');
 
-const parsedToken = localStorageToken !== null ? jwt.decode(localStorageToken) : {};
+const parsedToken = localStorageToken !== null ? jwt_decode(localStorageToken) : {};
 
 const {
   id: tokenId,

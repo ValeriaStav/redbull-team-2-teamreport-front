@@ -1,8 +1,8 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { legacy_createStore as createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 
-import rootReducer from '../reducers'
+import rootReducer from './reducers'
 import rootSaga from './sagas';
 
 const initialState = {};
@@ -20,6 +20,7 @@ const composedEnhancers = compose(
 );
 
 const store = createStore(rootReducer, initialState, composedEnhancers);
-store.runSaga = sagaMiddleware.runSaga;
-store.runSaga(rootSaga);
+console.log({ store })
+// store.runSaga = sagaMiddleware.runSaga;
+sagaMiddleware.run(rootSaga);
 export default store;

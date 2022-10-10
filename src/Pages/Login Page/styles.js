@@ -8,7 +8,7 @@ export const FormContainer= styled.div`
   width: 50%;
 `
 
-export const StyledForm = styled.form`
+export const StyledForm = styled.div`
   background-color: #FFFFFF;
 	display: flex;
 	align-items: center;
