@@ -7,11 +7,6 @@ import { BiExit } from "react-icons/bi";
 
 const Sidebar = (props) => {
   const navigate = useNavigate()
-  // console.log('window.location.pathname', window.location.pathname)
-
-  // const handleClick = (pathname) => {
-  //   history.push(pathname)
-  // }
 
   return (
     <Container>

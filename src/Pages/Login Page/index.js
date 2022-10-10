@@ -12,7 +12,6 @@ const LoginPage = (props) => {
   const [password, setPassword] = useState(null)
 
   const submit = () => {
-    console.log("boom!", email, password)
     navigate('/')
     // dispatch({ type: "SEND_LOGIN_CREDENTIALS", value: { email, password } })
     // Здесь диспатчить экшен с имейлом и паролем, а в саге, которая слушает этот экшен, отсылать аксиос запрос
