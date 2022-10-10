@@ -8,6 +8,7 @@ import EditMember from '../Pages/Edit Member'
 import MyReports from "../Pages/My Reports";
 import Sidebar from '../Components/Sidebar'
 import Header from '../Components/Header'
+import FillOutReport from '../Pages/FillOutReport'
 import { FlexCol } from '../styles'
 import HelpButton from '../Components/HelpButton'
 import { ColumnContainer, Container } from './styles'
@@ -27,6 +28,8 @@ const RoutesWithSideBar = () => {
           <Route path="/my-company/:id" element={<SeeMembers />} />
                 <Route path="/reports" element={<MyReports />} />
           <Route path="/edit-member/:id" element={<EditMember />} />
+          <Route path="/fill" element={<FillOutReport />} />
+
         </Routes>
       </Container>
     </ColumnContainer>

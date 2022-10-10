@@ -1,5 +1,5 @@
-import React from 'react'
-import { StyledInput, WidthDiv, InputLabel } from './styles'
+import React from "react"
+import { StyledInput, WidthDiv, InputLabel } from "./styles"
 
 const InputField = ({
   placeholder,
@@ -10,18 +10,18 @@ const InputField = ({
   stylesOverride,
   ...props
 }) => {
-  const handleChange = event => {
+  const handleChange = (event) => {
     props.name ? onChange(event) : onChange(event?.target?.value)
   }
 
   return (
     <>
       {label && <InputLabel>{label}</InputLabel>}
-      {window.location.pathname === '/team-member-registration' ? (
+      {window.location.pathname === "/team-member-registration" ? (
         <WidthDiv>
           <StyledInput
             stylesOverride={stylesOverride}
-            defaultValue={initialValue || ''}
+            defaultValue={initialValue || ""}
             placeholder={placeholder}
             type={type}
             onChange={handleChange}
@@ -32,7 +32,7 @@ const InputField = ({
         <div>
           <StyledInput
             stylesOverride={stylesOverride}
-            defaultValue={initialValue || ''}
+            defaultValue={initialValue || ""}
             placeholder={placeholder}
             type={type}
             onChange={handleChange}

@@ -1,40 +1,35 @@
-import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Formik, ErrorMessage } from 'formik'
-import Header from '../../Components/Header'
-import { FlexCol } from '../../styles'
-import HelpButton from '../../Components/HelpButton'
-import FeedbackButton from '../../Components/FeedbackButton'
-import InputField from '../../Components/InputField'
-import WhiteButton from '../../Components/WhiteButton'
+import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { Formik, ErrorMessage } from "formik"
+import Header from "../../Components/Header"
+import { FlexCol } from "../../styles"
+import HelpButton from "../../Components/HelpButton"
+import FeedbackButton from "../../Components/FeedbackButton"
+import InputField from "../../Components/InputField"
+import WhiteButton from "../../Components/WhiteButton"
 
-import {
-  TitleContainer,
-  Title,
-  Subtitle,
-  MembersContainer,
-} from './styles'
-import { Divider } from '../Edit Member/styles'
-import validate, { moreThanTwo } from '../../utils/validators'
+import { TitleContainer, Title, Subtitle, MembersContainer } from "./styles"
+import { Divider } from "../Edit Member/styles"
+import validate, { moreThanTwo } from "../../utils/validators"
 
 const companyMock = {
   id: 1,
-  name: 'ANKO Technology Corp',
-  date: 'January 2020',
+  name: "ANKO Technology Corp",
+  date: "January 2020",
 }
 
 const stylesOverride = {
-  border: '1px solid #ffcd29',
-  borderRadius: '6px',
-  width: '400px',
-  backgroundColor: 'white',
+  border: "1px solid #ffcd29",
+  borderRadius: "6px",
+  width: "400px",
+  backgroundColor: "white",
 }
 
-const MyCompany = props => {
+const MyCompany = (props) => {
   const navigate = useNavigate()
 
-  const handleSaveClick = values => {
-    console.log('values', values)
+  const handleSaveClick = (values) => {
+    console.log("values", values)
   }
 
   const handleSeeClick = () => {
@@ -62,10 +57,10 @@ const MyCompany = props => {
           initialValues={{
             name: companyMock.name,
           }}
-          validate={values =>
+          validate={(values) =>
             validate([
               {
-                name: 'name',
+                name: "name",
                 value: values.name,
                 functions: moreThanTwo,
               },
@@ -75,21 +70,21 @@ const MyCompany = props => {
           {({ values, handleSubmit, handleChange }) => (
             <form onSubmit={handleSubmit}>
               <InputField
-                name="title"
-                label="Change company name."
-                type="text"
+                name='title'
+                label='Change company name.'
+                type='text'
                 onChange={handleChange}
                 initialValue={values.name}
                 component={InputField}
                 stylesOverride={stylesOverride}
               />
-              <ErrorMessage name="title" component={Error} />
-              <WhiteButton type="submit">Save name change</WhiteButton>
+              <ErrorMessage name='title' component={Error} />
+              <WhiteButton type='submit'>Save name change</WhiteButton>
             </form>
           )}
         </Formik>
         <Divider>See a list of {companyMock.name}'s team members</Divider>
-        <div style={{ margin: '10px 0 30px' }}>
+        <div style={{ margin: "10px 0 30px" }}>
           If you need to edit a particular team member, you can see a complete
           list of team members and visit their profile to make edits.
           <b>You will not be able to see a team mamber's weekly report.</b>
