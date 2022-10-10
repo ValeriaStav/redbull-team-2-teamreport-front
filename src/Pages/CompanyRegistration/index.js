@@ -33,7 +33,7 @@ const CompanyRegistration = (props) => {
   // const dispatch = useDispatch()
 
   const submit = (values) => {
-     navigate("/")
+    navigate("/")
     // dispatch({ type: "SEND_LOGIN_CREDENTIALS", value: { email, password } })
     // Здесь диспатчить экшен с имейлом и паролем, а в саге, которая слушает этот экшен, отсылать аксиос запрос
   }
@@ -99,7 +99,7 @@ const CompanyRegistration = (props) => {
                     onChange={handleChange}
                   />
                   <ErrorMessage name='password' component={Error} />
-                  <SignInButton type='submit' >Sign Up</SignInButton>
+                  <SignInButton type='submit'>Sign Up</SignInButton>
                 </form>
               )}
             </Formik>
