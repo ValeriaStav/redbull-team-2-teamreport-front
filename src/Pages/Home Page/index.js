@@ -13,6 +13,7 @@ import { StyledLink } from "../../Components/Sidebar/styles";
 import { HeaderText, Wrapper, Button, Img } from "./styles";
 
 const HomePage = (props) => {
+    document.title = "Launch Guide";
     return (
         <FlexCol>
             <Header
