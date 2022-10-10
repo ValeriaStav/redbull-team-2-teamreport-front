@@ -24,7 +24,7 @@ const initialState = {
   token: localStorageToken !== null ? parsedToken : null,
 };
 
-export default (state = initialState, action) => {
+const usersReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SIGN_IN_USER_SUCCESS': {
       return {
@@ -59,3 +59,5 @@ export default (state = initialState, action) => {
       return state;
   }
 }
+
+export default usersReducer

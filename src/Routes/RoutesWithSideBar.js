@@ -1,26 +1,36 @@
-import { Routes, Route } from "react-router-dom";
-import HomePage from "../Pages/Home Page";
-import InviteYourTeam from "../Pages/Invite Your Team";
-import TeamReports from "../Pages/Team Reports";
+import { Routes, Route } from 'react-router-dom'
+import HomePage from '../Pages/Home Page'
+import InviteYourTeam from '../Pages/Invite Your Team'
+import TeamReports from '../Pages/Team Reports'
+import SeeMembers from '../Pages/See Members'
+import MyCompany from '../Pages/My Company'
+import EditMember from '../Pages/Edit Member'
 import MyReports from "../Pages/My Reports";
-import Sidebar from "../Components/Sidebar";
-import Header from "../Components/Header";
-import { FlexCol } from "../styles";
-
-import { RoutesWrapper } from "./styles";
+import Sidebar from '../Components/Sidebar'
+import Header from '../Components/Header'
+import { FlexCol } from '../styles'
+import HelpButton from '../Components/HelpButton'
+import { ColumnContainer, Container } from './styles'
 
 const RoutesWithSideBar = () => {
-    return (
-        <RoutesWrapper>
-            <Sidebar />
-            <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/invite" element={<InviteYourTeam />} />
-                <Route path="/team-reports" element={<TeamReports />} />
-                <Route path="/reports" element={<MyReports />} />
-            </Routes>
-        </RoutesWrapper>
-    );
-};
+  // const Route = props => <RouterRoute {...props} />
 
-export default RoutesWithSideBar;
+  return (
+    <ColumnContainer className="RouterWrapper">
+      <Sidebar />
+      <Container>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/invite" element={<InviteYourTeam />} />
+          <Route path="/team-reports" element={<TeamReports />} />
+          <Route path="/my-company" element={<MyCompany />} />
+          <Route path="/my-company/:id" element={<SeeMembers />} />
+                <Route path="/reports" element={<MyReports />} />
+          <Route path="/edit-member/:id" element={<EditMember />} />
+        </Routes>
+      </Container>
+    </ColumnContainer>
+  )
+}
+
+export default RoutesWithSideBar
