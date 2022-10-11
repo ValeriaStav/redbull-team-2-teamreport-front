@@ -29,13 +29,13 @@ const initialState = {
     }
 
     case 'FETCH_USER_REPORTS_SUCCESS': {
-      const { payload: { data, id } } = action;
+      const { payload: { data, userId } } = action;
       return {
         ...state,
         loading: false,
         byId: {
           ...state.byId,
-          [id]: {
+          [userId]: {
             reports: data
           },
         },

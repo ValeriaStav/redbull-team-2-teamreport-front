@@ -2,6 +2,13 @@ import React, { useState } from "react"
 import { useDispatch } from "react-redux"
 import PropTypes from "prop-types"
 import { useNavigate } from "react-router-dom"
+import { Formik, ErrorMessage } from "formik"
+
+import validate, {
+  passwordRule,
+  validEmail,
+} from "../../utils/validators"
+
 import {
   FormContainer,
   StyledForm,
@@ -21,40 +28,66 @@ import InputField from "../../Components/InputField"
 
 const LoginPage = (props) => {
   const navigate = useNavigate()
-  // const dispatch = useDispatch()
-  const [email, setEmail] = useState(null)
-  const [password, setPassword] = useState(null)
+  const dispatch = useDispatch()
 
-  const submit = () => {
-    navigate("/")
-    // dispatch({ type: "SEND_LOGIN_CREDENTIALS", value: { email, password } })
-    // Здесь диспатчить экшен с имейлом и паролем, а в саге, которая слушает этот экшен, отсылать аксиос запрос
+  const submit = (values) => {
+    console.log('click')
+    dispatch({ type: "SIGNIN_USER", payload: { ...values, navigate } })
   }
 
   const signUp = () => {
-    navigate("/company-registration")
+    navigate("/team-member-registration")
   }
 
   return (
     <StyledBody>
       <ContentContainer>
         <FormContainer>
-          <StyledForm>
-            <StyledTitle>Sign In</StyledTitle>
-            <InputField
-              placeholder='Email Address'
-              type='email'
-              onChange={setEmail}
-            ></InputField>
-            <InputField
-              placeholder='Password'
-              type='password'
-              onChange={setPassword}
-            ></InputField>
-            <MarginedTitle> Forgot Password ?</MarginedTitle>
+          <Formik onSubmit={submit}
+            initialValues={{
+              firstName: '',
+              lastName: '',
+              title: '',
+              email: '',
+              password: '',
+            }}
 
-            <SignInButton onClick={submit}>Sign In</SignInButton>
-          </StyledForm>
+            validate={(values) =>
+              validate([
+                {
+                  name: "email",
+                  value: values.email,
+                  functions: validEmail,
+                },
+                {
+                  name: "password",
+                  value: values.password,
+                  functions: passwordRule,
+                },
+              ])
+            }
+          >
+            {({ handleSubmit, handleChange }) => (
+              <StyledForm onSubmit={handleSubmit}>
+                <StyledTitle>Sign In</StyledTitle>
+                <InputField
+                  placeholder='Email Address'
+                  name='email'
+                  type='email'
+                  onChange={handleChange}
+                ></InputField>
+                <InputField
+                  placeholder='Password'
+                  name='password'
+                  type='password'
+                  onChange={handleChange}
+                ></InputField>
+                <MarginedTitle> Forgot Password ?</MarginedTitle>
+
+                <SignInButton onClick={submit}>Sign In</SignInButton>
+              </StyledForm>
+            )}
+          </Formik>
         </FormContainer>
         <OverlayContainer>
           <StyledOverlay>
@@ -62,7 +95,7 @@ const LoginPage = (props) => {
               <WhiteTitle>Hello, Friend!</WhiteTitle>
 
               <StyledP>
-                Enter your company details and start improving your business
+                Enter your details and start improving your business
                 with us
               </StyledP>
               <SignInButton onClick={signUp}>Sign Up</SignInButton>

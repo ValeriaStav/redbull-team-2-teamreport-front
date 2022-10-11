@@ -26,7 +26,7 @@ const RoutesWithSideBar = () => {
           <Route path="/team-reports" element={<TeamReports />} />
           <Route path="/my-company" element={<MyCompany />} />
           <Route path="/my-company/:id" element={<SeeMembers />} />
-                <Route path="/reports" element={<MyReports />} />
+          <Route path="/reports" element={<MyReports />} />
           <Route path="/edit-member/:id" element={<EditMember />} />
           <Route path="/fill" element={<FillOutReport />} />
 

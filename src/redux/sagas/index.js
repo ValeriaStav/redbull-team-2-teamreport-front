@@ -17,9 +17,9 @@ function* fetchReports() {
 
 function* fetchUserReports(action) {
   try {
-    const response = yield call(axiosInstance.get, `/reports/user/${action.payload.id}`);
+    const response = yield call(axiosInstance.get, `/api/User/reports?UserId=${action.payload.userId}`);
     const responseData = response.data;
-    yield put({ type: 'FETCH_USER_REPORTS_SUCCESS', payload: { data: responseData, id: action.payload.id } });
+    yield put({ type: 'FETCH_USER_REPORTS_SUCCESS', payload: { data: responseData, userId: action.payload.userId } });
   } catch (error) {
     console.log('error', error);
   }
@@ -37,10 +37,12 @@ function* fetchUserData(action) {
 
 function* signin(action) {
   try {
+    const { navigate } = action.payload;
     const signIn = async () => axiosInstance.post('api/Authentication/login', { ...action.payload });
     const response = yield call(signIn);
     const responseData = response.data;
     const decodedToken = jwt_decode(responseData);
+    console.log({ decodedToken })
     const {
       firstName,
       lastName,
@@ -48,12 +50,14 @@ function* signin(action) {
       title,
       id,
       command,
+      userId,
     } = decodedToken;
     localStorage.setItem('userToken', responseData);
     yield put({ type: 'SIGNIN_USER_SUCCESS' });
     yield put({
       type: 'SET_CURRENT_USER',
       payload: {
+        userId,
         firstName,
         lastName,
         email,
@@ -62,6 +66,7 @@ function* signin(action) {
         command,
       },
     });
+    navigate("/");
   } catch (error) {
     console.log('error', error);
   }
@@ -69,12 +74,10 @@ function* signin(action) {
 function* signupUser(action) {
   try {
     const { email, password, navigate } = action.payload;
-    console.log('action.payload', action.payload)
-
     const signUp = async () => axiosInstance.post('api/Authentication/registration', { ...action.payload });
     yield call(signUp);
     yield put({ type: 'SIGNIN_USER', payload: { password, email } });
-     navigate("/");
+    navigate("/");
   } catch (error) {
     console.log('error', error);
   }
@@ -93,11 +96,11 @@ function* signupCompany(action) {
 
 function* addReport(action) {
   try {
-    const formData = new FormData();
-    Object.entries(action.payload).forEach(([key, value]) => formData.append(key, value));
-    const addReportRequest = async () => axiosInstance.post('/reports', formData);
+    const { navigate } = action.payload;
+    console.log({ ...action.payload })
+    const addReportRequest = async () => axiosInstance.post('api/Reports/add', { ...action.payload });
     yield call(addReportRequest);
-    yield put({ type: 'FETCH_USER_REPORTS_START' });
+    navigate("/reports")
   } catch (error) {
     console.log('error', error);
   }

@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Formik, ErrorMessage } from "formik"
+import { useSelector } from 'react-redux'
 import Header from "../../Components/Header"
 import { FlexCol } from "../../styles"
 import HelpButton from "../../Components/HelpButton"
@@ -27,6 +28,7 @@ const stylesOverride = {
 
 const MyCompany = (props) => {
   const navigate = useNavigate()
+  const company = useSelector((state) => state.currentCompanyId)
 
   const handleSaveClick = (values) => {
     console.log("values", values)
@@ -36,8 +38,29 @@ const MyCompany = (props) => {
     navigate(`/my-company/${companyMock.id}`)
   }
 
+  const signUp = () => {
+    navigate("/company-registration")
+  }
+
   return (
     <FlexCol>
+      {!company? (
+      <> 
+      <Header
+        Content={
+          <TitleContainer>
+            <Title>You don't have company yet</Title>
+          </TitleContainer>
+        } />
+         <HelpButton />
+      <FeedbackButton />
+      <MembersContainer>
+      <h1>You can create your company now</h1>
+      <WhiteButton onClick={signUp} >Sign Up Company</WhiteButton>
+
+       </MembersContainer>
+      </> ) : (
+        <>
       <Header
         Content={
           <TitleContainer>
@@ -91,6 +114,9 @@ const MyCompany = (props) => {
         </div>
         <WhiteButton onClick={handleSeeClick}>See All Team Members</WhiteButton>
       </MembersContainer>
+      </>
+      )
+}
     </FlexCol>
   )
 }
