@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { useLocation } from "react-router-dom"
 import { Formik, ErrorMessage } from "formik"
+import { useSelector, useDispatch } from "react-redux"
 
 import Header from "../../Components/Header"
 import { FlexCol } from "../../styles"
@@ -24,24 +25,26 @@ import {
   MemberIcon,
   Container,
   Divider,
-} from "./styles"
+} from "../Edit Member/styles"
 
 const stylesOverride = {
   border: "1px solid grey",
 }
 
-const FillOutReport = () => {
-  const { state: memberDetails } = useLocation()
+const MyProfile = () => {
+  const dispatch = useDispatch();
   const [isOpen, setOpen] = useState(false)
+  const userDetails = useSelector( (state) => state.usersReducer)
   const [modalMessage, setModalMessage] = useState({
     title: "",
     subtitle: "",
     tip: "",
   })
-  const { firstName, lastName, email, title } = memberDetails
+  const { currentUserFirstName = "", currentUserLastName = "", currentUserEmail= "", currentUserTitle="" } = userDetails || {}
+  const userId = useSelector( (state) => state.usersReducer.currentUserId)
 
   const handleSaveClick = (submitValues) => {
-    // serve some axios request here
+    dispatch({ type:"EDIT_USER" , payload: {...submitValues, userId} })
   }
 
   const handleOpenModalClick = (type) => {
@@ -68,9 +71,9 @@ const FillOutReport = () => {
       <Header
         Content={
           <TitleContainer>
-            <MemberIcon>{`${firstName[0]}${lastName[0]}`}</MemberIcon>
-            <Title>{`${firstName} ${lastName}`}</Title>
-            <Subtitle>{email}</Subtitle>
+            <MemberIcon>{`${currentUserFirstName[0]}${currentUserLastName[0]}`}</MemberIcon>
+            <Title>{`${currentUserFirstName} ${currentUserLastName}`}</Title>
+            <Subtitle>{currentUserEmail}</Subtitle>
           </TitleContainer>
         }
       />
@@ -80,19 +83,15 @@ const FillOutReport = () => {
         <span
           style={{ fontWeight: 900, fontSize: "40px", marginBottom: "15px" }}
         >
-          Edit {firstName}'s information
-        </span>
-        <span style={{ fontSize: "14px" }}>
-          You may assign leaders or team members to this person, as well as
-          deactivate their account if they no longer work on your organization.
+          Edit your information
         </span>
         <Divider>Basic Profile information</Divider>
         <Formik
           onSubmit={handleSaveClick}
           initialValues={{
-            firstName: firstName,
-            lastName: lastName,
-            title: title,
+            firstName: currentUserFirstName,
+            lastName: currentUserLastName,
+            title: currentUserTitle,
           }}
           validate={(values) =>
             validate([
@@ -152,21 +151,20 @@ const FillOutReport = () => {
             </form>
           )}
         </Formik>
-        <Divider>{firstName} reports to the following leaders:</Divider>
+        <Divider>Your reports to the following leaders:</Divider>
         <WhiteButton
           onClick={() => handleOpenModalClick("leader")}
           style={{ width: "200px" }}
         >
           Edit Leader(s)
         </WhiteButton>
-        <Divider>The following members report to {firstName}:</Divider>
+        <Divider>The following members report to you:</Divider>
         <WhiteButton
           onClick={() => handleOpenModalClick("member")}
           style={{ width: "200px" }}
         >
           Edit Member(s)
         </WhiteButton>
-        <Divider>{firstName}'s invite link</Divider>
         {isOpen && (
           <Modal setIsOpen={setOpen}>
             <div
@@ -192,6 +190,6 @@ const FillOutReport = () => {
   )
 }
 
-FillOutReport.propTypes = {}
+MyProfile.propTypes = {}
 
-export default FillOutReport
+export default MyProfile

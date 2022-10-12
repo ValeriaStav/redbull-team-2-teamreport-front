@@ -1,4 +1,6 @@
 import React, { useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 import PropTypes from "prop-types"
 import { Formik } from "formik"
 import Select from "react-select"
@@ -34,25 +36,22 @@ const userMock = {
   date: "January 2020",
 }
 
-const oneWeekMiliseconds = 1000 * 60 * 60 * 24 * 7
+const oneDayMiliseconds = 1000 * 60 * 60 * 24
+const oneWeekMiliseconds = oneDayMiliseconds * 7
 
 const weekOptions = [
   {
-    value: `${moment(new Date(Date.now())).format("M-D-YY")}/${moment(
-      new Date(Date.now() + oneWeekMiliseconds)
-    ).format("M-D-YY")}`,
+    value: `${new Date(Date.now()).toJSON()}/${new Date(Date.now() + oneWeekMiliseconds).toJSON()}`,
     label: `Current Period: ${moment(new Date(Date.now())).format(
       "MMMM D"
     )} - ${moment(new Date(Date.now() + oneWeekMiliseconds)).format("MMMM D")}`,
   },
   {
-    value: `${moment(new Date(Date.now() - oneWeekMiliseconds)).format(
-      "M-D-YY"
-    )}/${moment(new Date(Date.now() - 1000 * 60 * 60 * 24)).format("M-D-YY")}`,
+    value: `${new Date(Date.now() - oneWeekMiliseconds).toJSON()}/${new Date(Date.now() - oneDayMiliseconds).toJSON()}`,
     label: `Previous Week: ${moment(
       new Date(Date.now() - oneWeekMiliseconds)
     ).format("MMMM D")} - ${moment(
-      new Date(Date.now() - 1000 * 60 * 60 * 24)
+      new Date(Date.now() - oneDayMiliseconds)
     ).format("MMMM D")}`,
   },
 ]
@@ -63,14 +62,14 @@ const FillOutReport = (props) => {
   const [workload, setWorkload] = useState(null)
   const [dateRange, setDateRange] = useState("")
 
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const userId = useSelector((state ) => state.usersReducer.currentUserId)
+
   const sendForm = (formValues) => {
-    console.log("formValues", {
-      morale,
-      stress,
-      workload,
-      dateRange,
-      ...formValues,
-    })
+    const [dateRangeStart, dateRangeEnd] = dateRange.split('/')
+    dispatch({ type: "ADD_REPORT", payload: { userId, morale, stress, workload, dateRangeStart, dateRangeEnd, ...formValues, navigate } })
+
   }
 
   return (
@@ -90,9 +89,9 @@ const FillOutReport = (props) => {
           moraleDescription: "",
           stressDescription: "",
           workloadDescription: "",
-          highValue: "",
-          lowValue: "",
-          elseValue: "",
+          high: "",
+          low: "",
+          anythingElse: "",
         }}
         validate={(values) =>
           validate([
@@ -112,13 +111,13 @@ const FillOutReport = (props) => {
               functions: notEmpty,
             },
             {
-              name: "highValue",
-              value: values.highValue,
+              name: "high",
+              value: values.high,
               functions: notEmpty,
             },
             {
-              name: "lowValue",
-              value: values.lowValue,
+              name: "low",
+              value: values.low,
               functions: notEmpty,
             },
           ])
@@ -129,8 +128,8 @@ const FillOutReport = (props) => {
             errors.workloadDescription ||
             errors.stressDescription ||
             errors.moraleDescription ||
-            errors.lowValue ||
-            errors.highValue ||
+            errors.low ||
+            errors.high ||
             !morale ||
             !stress ||
             !workload ||
@@ -303,7 +302,7 @@ const FillOutReport = (props) => {
                 <StyledQuestion> How was your high this week?</StyledQuestion>
                 <TextArea
                   onChange={handleChange}
-                  name='highValue'
+                  name='high'
                   placeholder="What was your personal or professional high this week? What's the thing you accomplished at work this week?"
                 />
               </ContentWrapper>
@@ -311,7 +310,7 @@ const FillOutReport = (props) => {
                 <StyledQuestion>How was your low this week?</StyledQuestion>
                 <TextArea
                   onChange={handleChange}
-                  name='lowValue'
+                  name='low'
                   placeholder='What was your personal or professional low this week?'
                 />
               </ContentWrapper>
@@ -319,7 +318,7 @@ const FillOutReport = (props) => {
                 <StyledQuestion>Anything else?</StyledQuestion>
                 <TextArea
                   onChange={handleChange}
-                  name='elseValue'
+                  name='anythingElse'
                   maxLength={400}
                   placeholder='Is there anything else you would like to share with your leader? *Optional'
                 />
@@ -337,7 +336,7 @@ const FillOutReport = (props) => {
                     All fields are required unless marked as optional
                   </Error>
                 )}
-                <YellowButton type='submit' style={{ marginTop: '20px'}} disabled={isHereError}>Send Weekly Report</YellowButton>
+                <YellowButton type='submit' style={{ marginTop: '20px' }} disabled={isHereError}>Send Weekly Report</YellowButton>
               </ContentWrapper>
             </form>
           )

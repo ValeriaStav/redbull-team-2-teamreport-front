@@ -6,6 +6,7 @@ import SeeMembers from '../Pages/See Members'
 import MyCompany from '../Pages/My Company'
 import EditMember from '../Pages/Edit Member'
 import MyReports from "../Pages/My Reports";
+import MyProfile from "../Pages/My Profile";
 import Sidebar from '../Components/Sidebar'
 import Header from '../Components/Header'
 import FillOutReport from '../Pages/FillOutReport'
@@ -26,9 +27,11 @@ const RoutesWithSideBar = () => {
           <Route path="/team-reports" element={<TeamReports />} />
           <Route path="/my-company" element={<MyCompany />} />
           <Route path="/my-company/:id" element={<SeeMembers />} />
-                <Route path="/reports" element={<MyReports />} />
+          <Route path="/reports" element={<MyReports />} />
           <Route path="/edit-member/:id" element={<EditMember />} />
           <Route path="/fill" element={<FillOutReport />} />
+          <Route path="/my-profile" element={<MyProfile />} />
+
 
         </Routes>
       </Container>

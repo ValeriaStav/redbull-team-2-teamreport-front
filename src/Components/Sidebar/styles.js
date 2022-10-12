@@ -29,8 +29,6 @@ export const BottomContainer = styled(FlexRow)`
 `;
 
 export const StyledLink = styled(NavLink)`
-
-
     padding: 10px;
     margin-bottom: 7%;
     color: white;
@@ -41,6 +39,25 @@ export const StyledLink = styled(NavLink)`
     font-weight: ${({ active }) => (active ? "900" : "500")};
     cursor: pointer;
 
+    &:hover {
+        color: yellow;
+    }
+
+    svg {
+        margin-right: 5px;
+    }
+`
+
+export const StyledButton = styled.div`
+    padding: 10px;
+    margin-bottom: 7%;
+    color: white;
+    background-color: ${({ active }) => (active ? "#292F31" : "transparent")};
+    text-decoration: none;
+    width: 68%;
+    justify-content: center;
+    font-weight: ${({ active }) => (active ? "900" : "500")};
+    cursor: pointer;
 
     &:hover {
         color: yellow;
@@ -49,7 +66,8 @@ export const StyledLink = styled(NavLink)`
     svg {
         margin-right: 5px;
     }
-`;
+`
+
 Logo.defaultProps = {
 
 

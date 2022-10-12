@@ -25,6 +25,7 @@ import Happy from "../../assets/happy.svg"
 import Neutral from "../../assets/neutral.svg"
 import Sad from "../../assets/sad.svg"
 import VerySad from "../../assets/very-sad.svg"
+import moment from "moment"
 
 const CellComponent = ({ check, children }) => {
   switch (check) {
@@ -70,15 +71,14 @@ const ReportWrapper = ({ report, setIsActive, isActive }) => {
         return null
     }
   }
-
   return (
     <>
       <RowExpand
-        onClick={() => (isActive ? setIsActive("") : setIsActive(report.id))}
+        onClick={() => (isActive ? setIsActive("") : setIsActive(report.reportId))}
         isActive={isActive}
       >
         <td width='60%'>
-          <h4>{report.dateRange}</h4>
+          <h4>{moment(new Date(report.dateRangeStart)).format('MMMM DD')} - {moment(new Date(report.dateRangeEnd)).format('MMMM DD, YYYY')}</h4>
         </td>
         <td width='10%'>
           <img src={returnIcon(report.morale)} alt='Happy' />
