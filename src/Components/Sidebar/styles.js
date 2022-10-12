@@ -9,8 +9,6 @@ export const Logo = styled.img`
 `;
 
 export const Container = styled(FlexRow)`
-
-
     width: 300px;
     background-color: #333a3d;
     height: 100vh;
@@ -29,8 +27,6 @@ export const BottomContainer = styled(FlexRow)`
 `;
 
 export const StyledLink = styled(NavLink)`
-
-
     padding: 10px;
     margin-bottom: 7%;
     color: white;
@@ -41,7 +37,6 @@ export const StyledLink = styled(NavLink)`
     font-weight: ${({ active }) => (active ? "900" : "500")};
     cursor: pointer;
 
-
     &:hover {
         color: yellow;
     }
@@ -51,8 +46,5 @@ export const StyledLink = styled(NavLink)`
     }
 `;
 Logo.defaultProps = {
-
-
     src: SideBarLogo,
 };
-
