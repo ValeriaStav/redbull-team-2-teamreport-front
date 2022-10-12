@@ -70,11 +70,7 @@ const MyReports = () => {
   const reports = useSelector((state) => state.reportsReducer.byId[userId || '']?.reports)
 
   useEffect(() => {
-    console.log("mount")
     dispatch({ type: "FETCH_USER_REPORTS_START", payload: { userId } })
-    return () => {
-      console.log("unmount")
-    }
   }, [])
 
   const handleExpandAll = () => {
@@ -85,7 +81,6 @@ const MyReports = () => {
     }
   }
 
-  console.log({ reports })
   return (
     <FlexCol>
       <Header

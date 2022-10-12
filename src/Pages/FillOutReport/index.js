@@ -68,8 +68,6 @@ const FillOutReport = (props) => {
 
   const sendForm = (formValues) => {
     const [dateRangeStart, dateRangeEnd] = dateRange.split('/')
-    console.log('*******', { userId })
-    console.log('---', { userId, ...formValues, dateRange })
     dispatch({ type: "ADD_REPORT", payload: { userId, morale, stress, workload, dateRangeStart, dateRangeEnd, ...formValues, navigate } })
 
   }

@@ -34,7 +34,6 @@ const TeamRegistrationPage = (props) => {
   const dispatch = useDispatch()
 
   const submit = (values) => {
-    // console.log('values', values)
     dispatch({ type: "SIGNUP_USER", payload: { ...values, navigate } })
   }
 

@@ -71,7 +71,6 @@ const ReportWrapper = ({ report, setIsActive, isActive }) => {
         return null
     }
   }
-  console.log({report})
   return (
     <>
       <RowExpand

@@ -57,7 +57,7 @@ const Sidebar = props => {
           My Company
         </StyledLink>
 
-        <StyledLink active={location.pathname === '/myprofile'} to="/myprofile">
+        <StyledLink active={location.pathname === '/my-profile'} to="/my-profile">
           <AiFillSetting />
           My Profile
         </StyledLink>

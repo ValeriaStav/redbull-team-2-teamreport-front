@@ -97,7 +97,6 @@ function* signupCompany(action) {
 function* addReport(action) {
   try {
     const { navigate } = action.payload;
-    console.log({ ...action.payload })
     const addReportRequest = async () => axiosInstance.post('api/Reports/add', { ...action.payload });
     yield call(addReportRequest);
     navigate("/reports")
@@ -108,9 +107,10 @@ function* addReport(action) {
 
 function* editUser(action) {
   try {
-    const addNewsRequest = async () => axiosInstance.put(`/users/edit/${action.payload.id}`, { ...action.payload });
-    yield call(addNewsRequest);
-    yield put({ type: 'SIGNIN_USER', payload: { ...action.payload } });
+    const editRequest = async () => axiosInstance.post(`api/User/edit/`, { ...action.payload });
+    const response = yield call(editRequest);
+    const responseData = response.data;
+    yield put({ type: 'SET_CURRENT_USER', payload: { ...responseData } });
   } catch (error) {
     console.log('error', error);
   }

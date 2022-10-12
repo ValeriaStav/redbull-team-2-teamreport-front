@@ -31,7 +31,6 @@ const LoginPage = (props) => {
   const dispatch = useDispatch()
 
   const submit = (values) => {
-    console.log('click')
     dispatch({ type: "SIGNIN_USER", payload: { ...values, navigate } })
   }
 
