@@ -4,9 +4,9 @@ import jwt_decode from "jwt-decode";
 
 import axiosInstance from './axios';
 
-function* fetchReports() {
+function* fetchPreviousReports() {
   try {
-    const getReports = async () => axiosInstance.get('/reports');
+    const getReports = async () => axiosInstance.get('/api/Leader/previousperiod');
     const response = yield call(getReports);
     const responseData = response.data;
     yield put({ type: 'FETCH_TEAM_REPORTS_SUCCESS', payload: responseData });
@@ -116,8 +116,19 @@ function* editUser(action) {
   }
 }
 
+function* sendInvitation(action) {
+  try {
+    const { firstName, lastName, email, teamId } = action.payload;
+    const link = `${window.location.origin}/team-member-registration?firstName=${firstName}&lastName=${lastName}&email=${email}&teamId=${teamId}`
+    const invitationRequest = async () => axiosInstance.post(`api/Email`, { ...action.payload, link });
+    yield call(invitationRequest);
+  } catch (error) {
+    console.log('error', error);
+  }
+}
+
 function* mySaga() {
-  yield takeLatest('FETCH_TEAM_MEMBERS_START', fetchReports);
+  yield takeLatest('FETCH_TEAM_MEMBERS_START', fetchPreviousReports);
   yield takeLatest('FETCH_USER_REPORTS_START', fetchUserReports);
   yield takeLatest('FETCH_USER_DATA', fetchUserData);
   yield takeLatest('SIGNIN_USER', signin);
@@ -125,6 +136,7 @@ function* mySaga() {
   yield takeLatest('SIGNUP_COMPANY', signupCompany);
   yield takeLatest('ADD_REPORT', addReport);
   yield takeLatest('EDIT_USER', editUser);
+  yield takeLatest('SEND_INVITATION', sendInvitation);
 }
 
 export default mySaga;

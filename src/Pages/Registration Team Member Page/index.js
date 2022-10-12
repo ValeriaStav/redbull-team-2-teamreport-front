@@ -1,8 +1,9 @@
-import React, { useState } from "react"
+import React, { useEffect, useMemo } from "react"
 import { useDispatch } from "react-redux"
 import PropTypes from "prop-types"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { Formik, ErrorMessage } from "formik"
+import queryString from 'query-string'
 import {
   FormContainer,
   StyledForm,
@@ -32,9 +33,10 @@ import InputField from "../../Components/InputField"
 const TeamRegistrationPage = (props) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const userData = queryString.parse(window.location.search)
 
   const submit = (values) => {
-    dispatch({ type: "SIGNUP_USER", payload: { ...values, navigate } })
+    dispatch({ type: "SIGNUP_USER", payload: { ...values, teamId: userData.teamId, navigate } })
   }
 
   const signIn = () => {
@@ -47,13 +49,13 @@ const TeamRegistrationPage = (props) => {
         <FormContainer>
           <Formik onSubmit={submit}
             initialValues={{
-              firstName: '',
-              lastName: '',
+              firstName: userData.firstName || '',
+              lastName: userData.lastName || '',
               title: '',
-              email: '',
+              email: userData.email || '',
               password: '',
             }}
-
+            enableReinitialize={true}
             validate={(values) =>
               validate([
                 {
@@ -84,13 +86,14 @@ const TeamRegistrationPage = (props) => {
               ])
             }
           >
-            {(({ handleSubmit, handleChange }) => (
+            {(({ handleSubmit, handleChange, values }) => (
               <StyledForm onSubmit={handleSubmit}>
                 <StyledTitle>Team Member Registration</StyledTitle>
                 <InputField
                   placeholder='First Name'
                   name="firstName"
                   type='text'
+                  initialValue={values.firstName}
                   onChange={handleChange}
                 />
                 <ErrorMessage name='firstName' component={Error} />
@@ -98,6 +101,7 @@ const TeamRegistrationPage = (props) => {
                   placeholder='Last Name'
                   name="lastName"
                   type='text'
+                  initialValue={values.lastName}
                   onChange={handleChange}
                 />
                 <ErrorMessage name='lastName' component={Error} />
@@ -105,6 +109,7 @@ const TeamRegistrationPage = (props) => {
                   placeholder='Title'
                   name="title"
                   type='text'
+                  initialValue={values.title}
                   onChange={handleChange}
                 />
                 <ErrorMessage name='title' component={Error} />
@@ -112,6 +117,7 @@ const TeamRegistrationPage = (props) => {
                   placeholder='Email Address'
                   name="email"
                   type='email'
+                  initialValue={values.email}
                   onChange={handleChange}
                 />
                 <ErrorMessage name='email' component={Error} />
@@ -119,6 +125,7 @@ const TeamRegistrationPage = (props) => {
                   placeholder='Password'
                   name="password"
                   type='password'
+                  initialValue={values.password}
                   onChange={handleChange}
                 />
                 <ErrorMessage name='password' component={Error} />
