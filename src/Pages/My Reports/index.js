@@ -1,6 +1,8 @@
 
 import React, { useEffect, useState } from "react"
 import Header from "../../Components/Header"
+import HelpButton from "../../Components/HelpButton"
+import FeedbackButton from "../../Components/FeedbackButton"
 import { FlexCol } from "../../styles"
 import { useDispatch, useSelector } from "react-redux"
 import {
@@ -22,46 +24,8 @@ import {
     TextRow,
     TextCell,
 } from "./styles";
-import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
-import VeryHappy from "../../assets/very-happy.svg";
-import Happy from "../../assets/happy.svg";
-import Neutral from "../../assets/neutral.svg";
-import Sad from "../../assets/sad.svg";
-import VerySad from "../../assets/very-sad.svg";
 
 import ReportWrapper from "../../Components/ReportWrapper";
-
-const reportMock = [
-    {
-        id: 1,
-        userId: 41,
-        morale: 2,
-        moraleDescription: "string",
-        stress: 2,
-        stressDescription: "string",
-        workload: 2,
-        workloadDescription: "string",
-        high: "string",
-        low: "string",
-        anythingElse: "string",
-        dateRange: "10 Sun - 12 Night",
-    },
-    {
-        id: 2,
-        userId: 41,
-        morale: 3,
-        moraleDescription: "string",
-        stress: 5,
-        stressDescription: "string",
-        workload: 1,
-        workloadDescription: "string",
-        high: "string",
-        low: "string",
-        anythingElse: "string",
-        dateRange: "mm-dd-yy/mm-dd-yy",
-    },
-];
-
 
 const MyReports = () => {
 
