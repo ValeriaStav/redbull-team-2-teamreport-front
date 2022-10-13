@@ -30,12 +30,10 @@ import Error from "../../Components/Error"
 
 const CompanyRegistration = (props) => {
   const navigate = useNavigate()
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   const submit = (values) => {
-    navigate("/")
-    // dispatch({ type: "SEND_LOGIN_CREDENTIALS", value: { email, password } })
-    // Здесь диспатчить экшен с имейлом и паролем, а в саге, которая слушает этот экшен, отсылать аксиос запрос
+     dispatch({ type: "SIGNUP_COMPANY", payload: { teamName: values.companyName, navigate } })
   }
 
   const back = () => {

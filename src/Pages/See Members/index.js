@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "../../Components/Header";
 import { FlexCol } from "../../styles";
@@ -17,6 +17,7 @@ import {
     MemberName,
     EditButton,
 } from "./styles";
+import { useDispatch, useSelector } from "react-redux";
 
 const memberMock = [
     {
@@ -51,10 +52,15 @@ const memberMock = [
 
 const SeeMembers = (props) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const teamId = useSelector( (state) => state.usersReducer.currentUserCommand)
 
     const handleEditClick = (itemDetails) => {
         navigate(`/edit-member/${itemDetails.id}`, { state: itemDetails });
     };
+    useEffect(() => {
+        dispatch({ type: "", payload: { teamId } })
+    },[])
 
     return (
         <FlexCol>

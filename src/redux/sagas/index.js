@@ -85,10 +85,13 @@ function* signupUser(action) {
 
 function* signupCompany(action) {
   try {
-    const { email, password } = action.payload;
-    const signUp = async () => axiosInstance.post('/auth/signupcompany', { ...action.payload });
-    yield call(signUp);
-    yield put({ type: 'SIGNIN_USER', payload: { email, password } });
+    const { teamName, navigate } = action.payload;
+    const stringName = teamName.toString()
+    console.log(typeof `${stringName}`)
+    const signUpCompany = async () => axiosInstance.post('api/Team/add', `${stringName}`, {headers: {'Content-Type': 'application/json'}} );
+    const request = yield call(signUpCompany);
+    yield put({ type: "SET_CURRENT_COMPANY", payload:{ company: request.data } });
+    navigate('/my-company')
   } catch (error) {
     console.log('error', error);
   }
@@ -127,6 +130,15 @@ function* sendInvitation(action) {
   }
 }
 
+function* getAllTeamMembers(action) {
+    try {
+      const getMembersRequest = async () => axiosInstance.get('api')
+
+    } catch (error) {
+      console.log('error', error);
+    }
+}
+
 function* mySaga() {
   yield takeLatest('FETCH_TEAM_MEMBERS_START', fetchPreviousReports);
   yield takeLatest('FETCH_USER_REPORTS_START', fetchUserReports);
@@ -137,6 +149,8 @@ function* mySaga() {
   yield takeLatest('ADD_REPORT', addReport);
   yield takeLatest('EDIT_USER', editUser);
   yield takeLatest('SEND_INVITATION', sendInvitation);
+  yield takeLatest('FETCH_TEAM_MEMBERS', getAllTeamMembers);
+
 }
 
 export default mySaga;

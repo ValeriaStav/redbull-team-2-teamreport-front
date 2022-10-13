@@ -2,6 +2,8 @@ import { useState } from "react"
 import { useLocation } from "react-router-dom"
 import { Formik, ErrorMessage } from "formik"
 import { useSelector, useDispatch } from "react-redux"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Header from "../../Components/Header"
 import { FlexCol } from "../../styles"
@@ -34,6 +36,7 @@ const stylesOverride = {
 const MyProfile = () => {
   const dispatch = useDispatch();
   const [isOpen, setOpen] = useState(false)
+  const notify = () => toast("Wow so easy!");
   const userDetails = useSelector( (state) => state.usersReducer)
   const [modalMessage, setModalMessage] = useState({
     title: "",
@@ -43,8 +46,15 @@ const MyProfile = () => {
   const { currentUserFirstName = "", currentUserLastName = "", currentUserEmail= "", currentUserTitle="" } = userDetails || {}
   const userId = useSelector( (state) => state.usersReducer.currentUserId)
 
+  const showToastMessage = () => {
+    toast.success('Your profile has been successfully updated !', {
+        position: toast.POSITION.BOTTOM_CENTER
+    });
+};
   const handleSaveClick = (submitValues) => {
+    showToastMessage()
     dispatch({ type:"EDIT_USER" , payload: {...submitValues, userId} })
+    
   }
 
   const handleOpenModalClick = (type) => {

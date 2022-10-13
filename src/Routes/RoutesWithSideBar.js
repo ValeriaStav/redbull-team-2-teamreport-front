@@ -17,7 +17,7 @@ import { ColumnContainer, Container } from './styles'
 
 
 const RoutesWithSideBar = () => {
-    // const Route = props => <RouterRoute {...props} />
+  // const Route = props => <RouterRoute {...props} />
 
 
   return (
@@ -34,6 +34,11 @@ const RoutesWithSideBar = () => {
           <Route path="/edit-member/:id" element={<EditMember />} />
           <Route path="/fill" element={<FillOutReport />} />
           <Route path="/my-profile" element={<MyProfile />} />
+        </Routes>
+      </Container>
+    </ColumnContainer>
+  )
+}
 
 
 export default RoutesWithSideBar;

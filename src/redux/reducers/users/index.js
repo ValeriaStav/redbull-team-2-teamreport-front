@@ -50,6 +50,14 @@ const usersReducer = (state = initialState, action) => {
       };
     }
 
+    case 'SET_CURRENT_COMPANY': {
+      const { company } = action.payload;
+      return {
+        ...state,
+        currentUserCommand: company
+      }
+    }
+
     case 'LOGOUT_USER': {
       return {
         ...initialState,

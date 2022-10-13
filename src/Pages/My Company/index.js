@@ -1,16 +1,19 @@
 import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Formik, ErrorMessage } from "formik"
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify';
+
 import Header from "../../Components/Header"
-import { FlexCol } from "../../styles"
 import HelpButton from "../../Components/HelpButton"
 import FeedbackButton from "../../Components/FeedbackButton"
 import InputField from "../../Components/InputField"
 import WhiteButton from "../../Components/WhiteButton"
 
+import { FlexCol } from "../../styles"
 import { TitleContainer, Title, Subtitle, MembersContainer } from "./styles";
 import { Divider } from "../Edit Member/styles";
+
 import validate, { moreThanTwo } from "../../utils/validators";
 
 const companyMock = {
@@ -28,14 +31,21 @@ const stylesOverride = {
 
 const MyCompany = (props) => {
   const navigate = useNavigate()
-  const company = useSelector((state) => state.currentCompanyId)
+  const dispatch = useDispatch()
+  const company = useSelector((state) => state.usersReducer.currentUserCommand)
 
+  const showToastMessage = () => {
+    toast.success('Your company has been successfully updated !', {
+        position: toast.POSITION.BOTTOM_CENTER
+    });
+};
     const handleSaveClick = (values) => {
-        console.log("values", values);
+        dispatch({ type: "", payload: {} })
+        showToastMessage()
     };
 
     const handleSeeClick = () => {
-        navigate(`/my-company/${companyMock.id}`);
+        navigate(`/my-company/${company}`);
     };
 
   const signUp = () => {
