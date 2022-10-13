@@ -5,6 +5,8 @@ import { AiFillCaretRight } from "react-icons/ai";
 import { Formik, ErrorMessage } from "formik";
 import Sidebar from "../../Components/Sidebar";
 import Header from "../../Components/Header";
+import HelpButton from "../../Components/HelpButton";
+import FeedbackButton from "../../Components/FeedbackButton";
 import { FlexCol } from "../../styles";
 import {
     HeaderText,
@@ -36,6 +38,8 @@ const InviteYourTeam = () => {
     return (
         <FlexCol>
             <Header Content={<HeaderText>Invite Your Team</HeaderText>} />
+            <HelpButton />
+            <FeedbackButton />
             {open && (
                 <>
                     <AccordionItem>
@@ -136,6 +140,7 @@ const InviteYourTeam = () => {
                         </AccordionContent>
                     ))}
                 </Formik>
+
             </AccordionItem>
         </FlexCol>
     );

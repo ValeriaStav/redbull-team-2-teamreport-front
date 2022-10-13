@@ -9,34 +9,34 @@ import FeedbackButton from "../../Components/FeedbackButton"
 import InputField from "../../Components/InputField"
 import WhiteButton from "../../Components/WhiteButton"
 
-import { TitleContainer, Title, Subtitle, MembersContainer } from "./styles"
-import { Divider } from "../Edit Member/styles"
-import validate, { moreThanTwo } from "../../utils/validators"
+import { TitleContainer, Title, Subtitle, MembersContainer } from "./styles";
+import { Divider } from "../Edit Member/styles";
+import validate, { moreThanTwo } from "../../utils/validators";
 
 const companyMock = {
-  id: 1,
-  name: "ANKO Technology Corp",
-  date: "January 2020",
-}
+    id: 1,
+    name: "ANKO Technology Corp",
+    date: "January 2020",
+};
 
 const stylesOverride = {
-  border: "1px solid #ffcd29",
-  borderRadius: "6px",
-  width: "400px",
-  backgroundColor: "white",
-}
+    border: "1px solid #ffcd29",
+    borderRadius: "6px",
+    width: "400px",
+    backgroundColor: "white",
+};
 
 const MyCompany = (props) => {
   const navigate = useNavigate()
   const company = useSelector((state) => state.currentCompanyId)
 
-  const handleSaveClick = (values) => {
-    console.log("values", values)
-  }
+    const handleSaveClick = (values) => {
+        console.log("values", values);
+    };
 
-  const handleSeeClick = () => {
-    navigate(`/my-company/${companyMock.id}`)
-  }
+    const handleSeeClick = () => {
+        navigate(`/my-company/${companyMock.id}`);
+    };
 
   const signUp = () => {
     navigate("/company-registration")
@@ -121,4 +121,4 @@ const MyCompany = (props) => {
   )
 }
 
-export default MyCompany
+export default MyCompany;

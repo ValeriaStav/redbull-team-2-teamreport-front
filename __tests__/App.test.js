@@ -1,8 +1,13 @@
-import { render, screen } from '@testing-library/react';
-import App from '../src/App';
+import { render, screen } from "@testing-library/react";
+import App from "../src/App";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe("App", () => {
+    it("renders Routes", async () => {
+        render(<App />);
+        screen.debug();
+        expect(screen.getAllByRole("img")[0]).toBeInTheDocument();
+        expect(screen.getByRole("button")).toBeInTheDocument();
+        const Routes = screen.getByText(/routesNoSideBar/i);
+        expect(Routes).toBeInTheDocument();
+    });
 });

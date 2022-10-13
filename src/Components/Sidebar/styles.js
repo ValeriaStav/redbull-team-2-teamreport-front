@@ -9,8 +9,6 @@ export const Logo = styled.img`
 `;
 
 export const Container = styled(FlexRow)`
-
-
     width: 300px;
     background-color: #333a3d;
     height: 100vh;
@@ -69,8 +67,5 @@ export const StyledButton = styled.div`
 `
 
 Logo.defaultProps = {
-
-
     src: SideBarLogo,
 };
-
