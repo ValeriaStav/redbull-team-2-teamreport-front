@@ -1,7 +1,9 @@
-import React, { useState } from "react"
+import React, { useEffect, useMemo } from "react"
 import { useDispatch } from "react-redux"
 import PropTypes from "prop-types"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
+import { Formik, ErrorMessage } from "formik"
+import queryString from 'query-string'
 import {
   FormContainer,
   StyledForm,
@@ -17,21 +19,24 @@ import {
   ContentContainer,
 } from "../Login Page/styles"
 
+import validate, {
+  moreThanTwo,
+  startsFromCapitalize,
+  passwordRule,
+  validEmail,
+} from "../../utils/validators"
+
+import Error from "../../Components/Error"
+
 import InputField from "../../Components/InputField"
 
 const TeamRegistrationPage = (props) => {
   const navigate = useNavigate()
-  // const dispatch = useDispatch()
-  const [firstName, setFirstName] = useState(null)
-  const [lastName, setLastName] = useState(null)
-  const [title, setTitle] = useState(null)
-  const [email, setEmail] = useState(null)
-  const [password, setPassword] = useState(null)
+  const dispatch = useDispatch()
+  const userData = queryString.parse(window.location.search)
 
-  const submit = () => {
-    navigate("/")
-    // dispatch({ type: "SEND_LOGIN_CREDENTIALS", value: { email, password } })
-    // Здесь диспатчить экшен с имейлом и паролем, а в саге, которая слушает этот экшен, отсылать аксиос запрос
+  const submit = (values) => {
+    dispatch({ type: "SIGNUP_USER", payload: { ...values, teamId: userData.teamId, navigate } })
   }
 
   const signIn = () => {
@@ -42,36 +47,92 @@ const TeamRegistrationPage = (props) => {
     <StyledBody>
       <ContentContainer>
         <FormContainer>
-          <StyledForm>
-            <StyledTitle>Team Member Registration</StyledTitle>
-            <InputField
-              placeholder='First Name'
-              type='text'
-              onChange={setFirstName}
-            ></InputField>
-            <InputField
-              placeholder='Last Name'
-              type='text'
-              onChange={setLastName}
-            ></InputField>
-            <InputField
-              placeholder='Title'
-              type='text'
-              onChange={setTitle}
-            ></InputField>
-            <InputField
-              placeholder='Email Address'
-              type='email'
-              onChange={setEmail}
-            ></InputField>
-            <InputField
-              placeholder='Password'
-              type='password'
-              onChange={setPassword}
-            ></InputField>
-
-            <SignInButton onClick={submit}>Sign Up</SignInButton>
-          </StyledForm>
+          <Formik onSubmit={submit}
+            initialValues={{
+              firstName: userData.firstName || '',
+              lastName: userData.lastName || '',
+              title: '',
+              email: userData.email || '',
+              password: '',
+            }}
+            enableReinitialize={true}
+            validate={(values) =>
+              validate([
+                {
+                  name: "firstName",
+                  value: values.firstName,
+                  functions: [moreThanTwo, startsFromCapitalize],
+                },
+                {
+                  name: "lastName",
+                  value: values.lastName,
+                  functions: [moreThanTwo, startsFromCapitalize],
+                },
+                {
+                  name: "title",
+                  value: values.title,
+                  functions: moreThanTwo,
+                },
+                {
+                  name: "email",
+                  value: values.email,
+                  functions: validEmail,
+                },
+                {
+                  name: "password",
+                  value: values.password,
+                  functions: passwordRule,
+                },
+              ])
+            }
+          >
+            {(({ handleSubmit, handleChange, values }) => (
+              <StyledForm onSubmit={handleSubmit}>
+                <StyledTitle>Team Member Registration</StyledTitle>
+                <InputField
+                  placeholder='First Name'
+                  name="firstName"
+                  type='text'
+                  initialValue={values.firstName}
+                  onChange={handleChange}
+                />
+                <ErrorMessage name='firstName' component={Error} />
+                <InputField
+                  placeholder='Last Name'
+                  name="lastName"
+                  type='text'
+                  initialValue={values.lastName}
+                  onChange={handleChange}
+                />
+                <ErrorMessage name='lastName' component={Error} />
+                <InputField
+                  placeholder='Title'
+                  name="title"
+                  type='text'
+                  initialValue={values.title}
+                  onChange={handleChange}
+                />
+                <ErrorMessage name='title' component={Error} />
+                <InputField
+                  placeholder='Email Address'
+                  name="email"
+                  type='email'
+                  initialValue={values.email}
+                  onChange={handleChange}
+                />
+                <ErrorMessage name='email' component={Error} />
+                <InputField
+                  placeholder='Password'
+                  name="password"
+                  type='password'
+                  initialValue={values.password}
+                  onChange={handleChange}
+                />
+                <ErrorMessage name='password' component={Error} />
+                <SignInButton type="submit">Sign Up</SignInButton>
+              </StyledForm>
+            ))}
+          </Formik>
         </FormContainer>
         <OverlayContainer>
           <StyledOverlay>

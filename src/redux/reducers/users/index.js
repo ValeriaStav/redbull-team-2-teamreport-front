@@ -1,16 +1,17 @@
-import jwt from 'jsonwebtoken';
+import jwt_decode from "jwt-decode";
+
 
 const localStorageToken = localStorage.getItem('userToken');
 
-const parsedToken = localStorageToken !== null ? jwt.decode(localStorageToken) : {};
+const parsedToken = localStorageToken !== null ? jwt_decode(localStorageToken) : {};
 
 const {
-  id: tokenId,
+  userId: tokenId,
   firstName: tokenFirstName,
   lastName: tokenLastName,
   title: tokenTitle,
   email: tokenEmail,
-  command: tokenCommand,
+  company: tokenCompany,
 } = parsedToken;
 
 const initialState = {
@@ -19,9 +20,9 @@ const initialState = {
   currentUserLastName: tokenLastName || '',
   currentUserEmail: tokenEmail || '',
   currentUserTitle: tokenTitle || '',
-  currentUserCommand: tokenCommand || '',
-  isLoggedIn: localStorageToken !== null,
-  token: localStorageToken !== null ? parsedToken : null,
+  currentUserCommand: tokenCompany || '',
+  isLoggedIn: Boolean(localStorageToken),
+  token: Boolean(localStorageToken) ? parsedToken : null,
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -35,7 +36,7 @@ const usersReducer = (state = initialState, action) => {
 
     case 'SET_CURRENT_USER': {
       const {
-        firstName, lastName, id, email, title, command,
+        firstName, lastName, userId, email, title, company,
       } = action.payload;
       return {
         ...state,
@@ -43,15 +44,15 @@ const usersReducer = (state = initialState, action) => {
         currentUserFirstName: firstName,
         currentUserLastName: lastName,
         currentUserEmail: email,
-        currentUserId: id,
+        currentUserId: userId,
         currentUserTitle: title,
-        currentUserCommand: command
+        currentUserCompany: company
       };
     }
 
     case 'LOGOUT_USER': {
       return {
-        ...action.payload,
+        ...initialState,
       }
     }
 

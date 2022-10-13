@@ -40,10 +40,11 @@ const FillOutReport = () => {
     });
     const { firstName, lastName, email, title } = memberDetails;
 
-    const handleSaveClick = (submitValues) => {
-        console.log({ submitValues });
-        // serve some axios request here
-    };
+
+  const handleSaveClick = (submitValues) => {
+    // serve some axios request here
+  }
+
 
     const handleOpenModalClick = (type) => {
         if (type === "leader") {

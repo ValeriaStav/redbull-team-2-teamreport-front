@@ -38,8 +38,8 @@ const CompanyRegistration = (props) => {
     // Здесь диспатчить экшен с имейлом и паролем, а в саге, которая слушает этот экшен, отсылать аксиос запрос
   }
 
-  const signIn = () => {
-    navigate("/login")
+  const back = () => {
+    navigate("/my-company")
   }
 
   return (
@@ -99,7 +99,7 @@ const CompanyRegistration = (props) => {
                     onChange={handleChange}
                   />
                   <ErrorMessage name='password' component={Error} />
-                  <SignInButton type='submit'>Sign Up</SignInButton>
+                  <SignInButton type='submit'>Sign Up Company</SignInButton>
                 </form>
               )}
             </Formik>
@@ -108,12 +108,12 @@ const CompanyRegistration = (props) => {
         <OverlayContainer>
           <StyledOverlay>
             <OverlayRightPanel>
-              <WhiteTitle>Welcome Back!</WhiteTitle>
+              <WhiteTitle>Create your company!</WhiteTitle>
 
               <StyledP>
-                To keep connected with us please login with your personal info
+                If you don't want to create a company, you can go back
               </StyledP>
-              <SignInButton onClick={signIn}>Sign In</SignInButton>
+              <SignInButton onClick={back}>Go Back</SignInButton>
             </OverlayRightPanel>
           </StyledOverlay>
         </OverlayContainer>

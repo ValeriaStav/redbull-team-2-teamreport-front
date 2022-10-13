@@ -1,11 +1,12 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
-import jwt from 'jsonwebtoken';
+import jwt_decode from "jwt-decode";
+
 
 import axiosInstance from './axios';
 
-function* fetchReports() {
+function* fetchPreviousReports() {
   try {
-    const getReports = async () => axiosInstance.get('/reports');
+    const getReports = async () => axiosInstance.get('/api/Leader/previousperiod');
     const response = yield call(getReports);
     const responseData = response.data;
     yield put({ type: 'FETCH_TEAM_REPORTS_SUCCESS', payload: responseData });
@@ -16,9 +17,9 @@ function* fetchReports() {
 
 function* fetchUserReports(action) {
   try {
-    const response = yield call(axiosInstance.get, `/reports/user/${action.payload.id}`);
+    const response = yield call(axiosInstance.get, `/api/User/reports?UserId=${action.payload.userId}`);
     const responseData = response.data;
-    yield put({ type: 'FETCH_USER_REPORTS_SUCCESS', payload: { data: responseData, id: action.payload.id } });
+    yield put({ type: 'FETCH_USER_REPORTS_SUCCESS', payload: { data: responseData, userId: action.payload.userId } });
   } catch (error) {
     console.log('error', error);
   }
@@ -36,11 +37,12 @@ function* fetchUserData(action) {
 
 function* signin(action) {
   try {
-    const signIn = async () => axiosInstance.post('/auth/signin', { ...action.payload });
+    const { navigate } = action.payload;
+    const signIn = async () => axiosInstance.post('api/Authentication/login', { ...action.payload });
     const response = yield call(signIn);
     const responseData = response.data;
-    const [, responseToken] = responseData.token.split(' ');
-    const decodedToken = jwt.decode(responseToken);
+    const decodedToken = jwt_decode(responseData);
+    console.log({ decodedToken })
     const {
       firstName,
       lastName,
@@ -48,12 +50,14 @@ function* signin(action) {
       title,
       id,
       command,
+      userId,
     } = decodedToken;
-    localStorage.setItem('userToken', responseToken);
+    localStorage.setItem('userToken', responseData);
     yield put({ type: 'SIGNIN_USER_SUCCESS' });
     yield put({
       type: 'SET_CURRENT_USER',
       payload: {
+        userId,
         firstName,
         lastName,
         email,
@@ -62,16 +66,18 @@ function* signin(action) {
         command,
       },
     });
+    navigate("/");
   } catch (error) {
     console.log('error', error);
   }
 }
 function* signupUser(action) {
   try {
-    const { email, password } = action.payload;
-    const signUp = async () => axiosInstance.post('/auth/signupuser', { ...action.payload });
+    const { email, password, navigate } = action.payload;
+    const signUp = async () => axiosInstance.post('api/Authentication/registration', { ...action.payload });
     yield call(signUp);
-    yield put({ type: 'SIGNIN_USER', payload: { email, password } });
+    yield put({ type: 'SIGNIN_USER', payload: { password, email } });
+    navigate("/");
   } catch (error) {
     console.log('error', error);
   }
@@ -90,11 +96,10 @@ function* signupCompany(action) {
 
 function* addReport(action) {
   try {
-    const formData = new FormData();
-    Object.entries(action.payload).forEach(([key, value]) => formData.append(key, value));
-    const addReportRequest = async () => axiosInstance.post('/reports', formData);
+    const { navigate } = action.payload;
+    const addReportRequest = async () => axiosInstance.post('api/Reports/add', { ...action.payload });
     yield call(addReportRequest);
-    yield put({ type: 'FETCH_USER_REPORTS_START' });
+    navigate("/reports")
   } catch (error) {
     console.log('error', error);
   }
@@ -102,16 +107,28 @@ function* addReport(action) {
 
 function* editUser(action) {
   try {
-    const addNewsRequest = async () => axiosInstance.put(`/users/edit/${action.payload.id}`, { ...action.payload });
-    yield call(addNewsRequest);
-    yield put({ type: 'SIGNIN_USER', payload: { ...action.payload } });
+    const editRequest = async () => axiosInstance.post(`api/User/edit/`, { ...action.payload });
+    const response = yield call(editRequest);
+    const responseData = response.data;
+    yield put({ type: 'SET_CURRENT_USER', payload: { ...responseData } });
+  } catch (error) {
+    console.log('error', error);
+  }
+}
+
+function* sendInvitation(action) {
+  try {
+    const { firstName, lastName, email, teamId } = action.payload;
+    const link = `${window.location.origin}/team-member-registration?firstName=${firstName}&lastName=${lastName}&email=${email}&teamId=${teamId}`
+    const invitationRequest = async () => axiosInstance.post(`api/Email`, { ...action.payload, link });
+    yield call(invitationRequest);
   } catch (error) {
     console.log('error', error);
   }
 }
 
 function* mySaga() {
-  yield takeLatest('FETCH_TEAM_MEMBERS_START', fetchReports);
+  yield takeLatest('FETCH_TEAM_MEMBERS_START', fetchPreviousReports);
   yield takeLatest('FETCH_USER_REPORTS_START', fetchUserReports);
   yield takeLatest('FETCH_USER_DATA', fetchUserData);
   yield takeLatest('SIGNIN_USER', signin);
@@ -119,6 +136,7 @@ function* mySaga() {
   yield takeLatest('SIGNUP_COMPANY', signupCompany);
   yield takeLatest('ADD_REPORT', addReport);
   yield takeLatest('EDIT_USER', editUser);
+  yield takeLatest('SEND_INVITATION', sendInvitation);
 }
 
 export default mySaga;
