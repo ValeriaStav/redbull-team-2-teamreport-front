@@ -29,17 +29,17 @@ describe("InviteYourTeam", () => {
         expect(items).toHaveLength(1);
     });
 
-    // const user = userEvent.setup();
-    // await user.type(screen.getByLabelText(/last name/i), values.lastName);
-    // await user.type(screen.getByLabelText(/first name/i), values.firstName);
-    // await user.type(screen.getByLabelText(/email address/i), values.email);
-    // await user.click(screen.getByRole('button', { name: 'Invite' }));
-    // expect(screen.getByLabelText(/InputFirstName1/i)).toBeInTheDocument();
-    // expect(screen.getByDisplayValue("")).toBeInTheDocument();
-    // expect(screen.getByTestId("exampleInputEmail1")).toBeInTheDocument();
-    // screen.getByRole("");
-    // it("should render the InviteYourTeam page", () => {
-    // const { container } = render(<InviteYourTeam />);
-    // render(<InviteYourTeam />);
-    // screen.getByRole("button", { name: /Invite/i });
+    const user = userEvent.setup();
+    await user.type(screen.getByLabelText(/last name/i), values.lastName);
+    await user.type(screen.getByLabelText(/first name/i), values.firstName);
+    await user.type(screen.getByLabelText(/email address/i), values.email);
+    await user.click(screen.getByRole('button', { name: 'Invite' }));
+    expect(screen.getByLabelText(/InputFirstName1/i)).toBeInTheDocument();
+    expect(screen.getByDisplayValue("")).toBeInTheDocument();
+    expect(screen.getByTestId("exampleInputEmail1")).toBeInTheDocument();
+    screen.getByRole("");
+    it("should render the InviteYourTeam page", () => {
+    const { container } = render(<InviteYourTeam />);
+    render(<InviteYourTeam />);
+    screen.getByRole("button", { name: /Invite/i });
 });
