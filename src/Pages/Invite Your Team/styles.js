@@ -54,7 +54,7 @@ export const FormItem = styled.form`
     padding: 0.5rem 1rem;
 `;
 
-export const AccordionContent = styled.div`
+export const AccordionContent = styled.form`
     position: relative;
     display: block;
     padding: 0 0.5rem;
