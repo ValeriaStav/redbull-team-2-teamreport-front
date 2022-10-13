@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import Sidebar from "../../Components/Sidebar";
 import Header from "../../Components/Header";
+import HelpButton from "../../Components/HelpButton";
+import FeedbackButton from "../../Components/FeedbackButton";
 import { FlexCol } from "../../styles";
 import SideBarLogo from "../../assets/SideBarLogo.png";
 import LGInvite from "../../assets/LGInvite.png";
@@ -23,7 +25,8 @@ const HomePage = (props) => {
                     </HeaderText>
                 }
             ></Header>
-
+            <HelpButton />
+            <FeedbackButton />
             <Wrapper>
                 <div>
                     <h3>Invite Your Team</h3>

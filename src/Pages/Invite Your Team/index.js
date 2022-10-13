@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { AiFillCaretRight } from "react-icons/ai";
 import Sidebar from "../../Components/Sidebar";
 import Header from "../../Components/Header";
+import HelpButton from "../../Components/HelpButton";
+import FeedbackButton from "../../Components/FeedbackButton";
 import { FlexCol } from "../../styles";
 import {
     HeaderText,
@@ -18,6 +20,8 @@ const InviteYourTeam = () => {
     return (
         <FlexCol>
             <Header Content={<HeaderText>Invite Your Team</HeaderText>} />
+            <HelpButton />
+            <FeedbackButton />
             {open && (
                 <>
                     <AccordionItem>
@@ -77,7 +81,6 @@ const InviteYourTeam = () => {
                         aria-describedby="emailHelp"
                     />
                     <Button onClick={() => setOpen(true)}>Invite</Button>
-                    {/* //в My Reports true поменять на !isActive */}
                 </AccordionContent>
             </AccordionItem>
         </FlexCol>

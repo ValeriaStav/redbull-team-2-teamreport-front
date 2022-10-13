@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import Header from "../../Components/Header";
+import HelpButton from "../../Components/HelpButton";
+import FeedbackButton from "../../Components/FeedbackButton";
 import { FlexCol } from "../../styles";
 import {
     Container,
@@ -20,7 +22,6 @@ import {
     TextRow,
     TextCell,
 } from "./styles";
-
 import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import VeryHappy from "../../assets/very-happy.svg";
 import Happy from "../../assets/happy.svg";
@@ -85,6 +86,8 @@ const MyReports = () => {
                     </HeaderText>
                 }
             ></Header>
+            <HelpButton />
+            <FeedbackButton />
             <Container>
                 <h2>Past Weekly Reports</h2>
                 <div>
