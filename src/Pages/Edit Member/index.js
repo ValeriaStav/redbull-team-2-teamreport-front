@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Formik, ErrorMessage } from "formik";
+import { useDispatch, useSelector } from "react-redux";
 
 import Header from "../../Components/Header";
 import { FlexCol } from "../../styles";
@@ -30,21 +31,26 @@ const stylesOverride = {
     border: "1px solid grey",
 };
 
-const FillOutReport = () => {
-    const { state: memberDetails } = useLocation();
+const EditMember = () => {
+    const { state: userId } = useLocation();
     const [isOpen, setOpen] = useState(false);
+    const dispatch = useDispatch();
+    const teamId = useSelector((state) => state.usersReducer.currentUserCommand)
+    const members = useSelector((state) => state.teamReducer.members) || []
+    const { firstName = '', lastName = '', title } = members?.length ? members.find(item => item.userId === userId) : {}
     const [modalMessage, setModalMessage] = useState({
         title: "",
         subtitle: "",
         tip: "",
     });
-    const { firstName, lastName, email, title } = memberDetails;
 
+    useEffect(() => {
+        dispatch({ type: "FETCH_TEAM_MEMBERS", payload: { teamId } })
+    }, [])
 
-  const handleSaveClick = (submitValues) => {
-    // serve some axios request here
-  }
-
+    const handleSaveClick = (submitValues) => {
+        dispatch({ type: "EDIT_USER", payload: { ...submitValues, userId, isOtherMember: true } })
+    }
 
     const handleOpenModalClick = (type) => {
         if (type === "leader") {
@@ -72,7 +78,6 @@ const FillOutReport = () => {
                     <TitleContainer>
                         <MemberIcon>{`${firstName[0]}${lastName[0]}`}</MemberIcon>
                         <Title>{`${firstName} ${lastName}`}</Title>
-                        <Subtitle>{email}</Subtitle>
                     </TitleContainer>
                 }
             />
@@ -101,6 +106,7 @@ const FillOutReport = () => {
                         lastName: lastName,
                         title: title,
                     }}
+                    enableReinitialize
                     validate={(values) =>
                         validate([
                             {
@@ -203,7 +209,6 @@ const FillOutReport = () => {
                         <div style={{ fontSize: "14px", marginTop: "20px" }}>
                             {modalMessage.tip}
                         </div>
-                        {/* Add badges here */}
                         <InputField />
                         <YellowButton>Save Changes</YellowButton>
                     </Modal>
@@ -213,6 +218,6 @@ const FillOutReport = () => {
     );
 };
 
-FillOutReport.propTypes = {};
+EditMember.propTypes = {};
 
-export default FillOutReport;
+export default EditMember;

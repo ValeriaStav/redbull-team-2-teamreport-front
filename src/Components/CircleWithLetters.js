@@ -1,10 +1,10 @@
 import React from 'react';
 import {upperLetters} from "../utils/upperLetters";
 
-const CircleWithLetters = ({username}) => {
+const CircleWithLetters = ({prop}) => {
     return (
         <p style={{color: "rgba(0,0,0,0.6)"}}>
-            {upperLetters(username.username.toString())}
+            {upperLetters(prop?.name.toString())}
         </p>
     );
 };

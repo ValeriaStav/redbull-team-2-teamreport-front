@@ -53,41 +53,56 @@ const memberMock = [
 const SeeMembers = (props) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const teamId = useSelector( (state) => state.usersReducer.currentUserCommand)
+    const teamId = useSelector((state) => state.usersReducer.currentUserCommand)
+    const teamMembers = useSelector((state) => state.teamReducer.members)
+    const companyName = useSelector((state) => state.usersReducer.currentUserCompanyName)
+    const profileId = useSelector((state) => state.usersReducer.currentUserId)
+
+
+    useEffect(() => {
+        if (!companyName) {
+            dispatch({ type: "FETCH_COMPANY_DATA", payload: teamId })
+        }
+    }, [teamId, companyName])
 
     const handleEditClick = (itemDetails) => {
-        navigate(`/edit-member/${itemDetails.id}`, { state: itemDetails });
+    if(String(profileId) === String(itemDetails?.userId)) {
+            navigate(`/my-profile`);
+        } else {
+            navigate(`/edit-member/${itemDetails?.userId}`, { state: itemDetails?.userId });
+        }
     };
+
     useEffect(() => {
-        dispatch({ type: "", payload: { teamId } })
-    },[])
+        dispatch({ type: "FETCH_TEAM_MEMBERS", payload: { teamId } })
+    }, [])
 
     return (
         <FlexCol>
             <Header
                 Content={
                     <TitleContainer>
-                        <Title>ANKO Technology Corp</Title>
-                        <Subtitle>Joined January 2020</Subtitle>
+                        <Title>{companyName}</Title>
+                        <Subtitle>Joined October 2022</Subtitle>
                     </TitleContainer>
                 }
             />
             <HelpButton />
             <FeedbackButton />
             <MembersContainer>
-                {memberMock.map((item) => (
-                    <MemberCard key={item.id}>
+                {teamMembers?.length ? teamMembers.map((item) => (
+                    <MemberCard key={item?.userId}>
                         <div>
                             <MemberIcon>
-                                {`${item.firstName[0]}${item.lastName[0]}`}
+                                {`${item?.userName.split(' ').reduce((acc, value) => acc + value[0], '')}`}
                             </MemberIcon>
-                            <MemberName>{`${item.firstName} ${item.lastName}`}</MemberName>
+                            <MemberName>{`${item?.userName.split(' ')[0]} ${item?.userName.split(' ')[1]}`}</MemberName>
                         </div>
                         <EditButton onClick={() => handleEditClick(item)}>
                             Edit
                         </EditButton>
                     </MemberCard>
-                ))}
+                )) : null}
             </MembersContainer>
         </FlexCol>
     );

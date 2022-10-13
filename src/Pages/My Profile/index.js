@@ -37,24 +37,24 @@ const MyProfile = () => {
   const dispatch = useDispatch();
   const [isOpen, setOpen] = useState(false)
   const notify = () => toast("Wow so easy!");
-  const userDetails = useSelector( (state) => state.usersReducer)
+  const userDetails = useSelector((state) => state.usersReducer)
   const [modalMessage, setModalMessage] = useState({
     title: "",
     subtitle: "",
     tip: "",
   })
-  const { currentUserFirstName = "", currentUserLastName = "", currentUserEmail= "", currentUserTitle="" } = userDetails || {}
-  const userId = useSelector( (state) => state.usersReducer.currentUserId)
+  const { currentUserFirstName = "", currentUserLastName = "", currentUserEmail = "", currentUserTitle = "" } = userDetails || {}
+  const userId = useSelector((state) => state.usersReducer.currentUserId)
 
   const showToastMessage = () => {
     toast.success('Your profile has been successfully updated !', {
-        position: toast.POSITION.BOTTOM_CENTER
+      position: toast.POSITION.BOTTOM_CENTER
     });
-};
+  };
   const handleSaveClick = (submitValues) => {
     showToastMessage()
-    dispatch({ type:"EDIT_USER" , payload: {...submitValues, userId} })
-    
+    dispatch({ type: "EDIT_USER", payload: { ...submitValues, userId } })
+
   }
 
   const handleOpenModalClick = (type) => {

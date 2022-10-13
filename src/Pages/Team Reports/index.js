@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
+import React, { useState, useEffect} from 'react'
 import Header from "../../Components/Header";
 import { Switches, HeaderText} from "./styles"
 import ReportsWithThreeStates from "../../Components/ReportsWithThreeStates";
+import { useDispatch, useSelector } from 'react-redux';
 
 const TeamReports = () => {
     const propsP = [
@@ -21,6 +22,25 @@ const TeamReports = () => {
         }
     ]
     const [switcher, setSwitcher] = useState(1)
+    const dispatch = useDispatch();
+    const id = useSelector((state) => state.usersReducer.currentUserCommand)
+
+    useEffect(() => {
+        console.log("4cw3ws4tw", switcher)
+        switch (switcher) {
+            case 1:
+                dispatch({ type: "FETCH_IMMEDIATE_TEAM_REPORTS", payload: { id, reportTipe: 'previous' } })
+
+            case 2:
+                dispatch({ type: "FETCH_IMMEDIATE_TEAM_REPORTS", payload: { id, reportTipe: 'current' } })
+
+            case 3:
+                dispatch({ type: "FETCH_EXTENDED_TEAM_REPORTS", payload: { id, reportTipe: 'overall' } })
+
+            default: break
+
+        }
+    }, [switcher])
 
     return (
           <>

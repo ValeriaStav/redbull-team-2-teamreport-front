@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
-import { OptionsPanel, Switches} from "../../Pages/Team Reports/styles";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { OptionsPanel, Switches } from "../../Pages/Team Reports/styles";
 import UserWithThreeStates from "../UserWithThreeStates";
 import ReportsOlder from "../ReportsOlder";
 
-const ReportsWithThreeStates = ({switcher}) => {
+const ReportsWithThreeStates = ({ switcher }) => {
 
     const propsForAllPeriods = [
         {
@@ -183,118 +184,126 @@ const ReportsWithThreeStates = ({switcher}) => {
     ]
 
     const [propsAll, setPropsAll] = useState(propsForAllPeriodsM);
+    const dispatch = useDispatch()
+    const id = useSelector((state) => state.usersReducer.currentUserCommand)
+    const renderData = useSelector((state) => state.teamReducer.teamReports)
 
     const [state, setState] = useState(1)
-        switch (switcher){
-            case 1:
-                const propsP = [
-                    {
-                        userid: 1,
-                        username:"Antony Stark",
-                        morale: 2,
-                        stress: 4,
-                        workload:2
-                    },
-                    {
-                        userid: 2,
-                        username:"Antony Stark",
-                        morale: 2,
-                        stress: 4,
-                        workload:2
-                    }
-                ]
-                return (
+
+
+
+
+
+    switch (switcher) {
+        case 1:
+            const propsP = [
+                {
+                    userid: 1,
+                    username: "Antony Stark",
+                    morale: 2,
+                    stress: 4,
+                    workload: 2
+                },
+                {
+                    userid: 2,
+                    username: "Antony Stark",
+                    morale: 2,
+                    stress: 4,
+                    workload: 2
+                }
+            ]
+            return (
                 <>
-                    <div style={{textAlign: "center", fontSize: 18, marginBottom: 30, marginTop: 50}}>
+                    <div style={{ textAlign: "center", fontSize: 18, marginBottom: 30, marginTop: 50 }}>
                         <b>IMMEDIATE TEAM</b>
-                        <div style={{background: "yellow", padding: 4, marginInline: 760, marginTop: 20}}></div>
+                        <div style={{ background: "yellow", padding: 4, marginInline: 760, marginTop: 20 }}></div>
                     </div>
 
                     <OptionsPanel>
-                        <p style={{marginRight: 35}}>Morale</p>
-                        <p style={{marginRight: 25}}>Stress</p>
-                        <p style={{marginRight: 100}}>Workload</p>
+                        <p style={{ marginRight: 35 }}>Morale</p>
+                        <p style={{ marginRight: 25 }}>Stress</p>
+                        <p style={{ marginRight: 100 }}>Workload</p>
                     </OptionsPanel>
-                    {propsP.map(prop =>
-                        <UserWithThreeStates prop={prop} key={prop.userid}/>
+                    {renderData.map((prop, index) =>
+                        <UserWithThreeStates prop={prop} key={index} />
                     )}
                 </>
             )
 
-            case 2:
-                const propsC = [
-                    {
-                        userid: 1,
-                        username:"Antony Stark",
-                        morale: 1,
-                        stress: 4,
-                        workload:2
-                    },
-                    {
-                        userid: 2,
-                        username:"Antony Stark",
-                        morale: 5,
-                        stress: 3,
-                        workload:1
-                    }
-                ]
-                return (
+        case 2:
+            const propsC = [
+                {
+                    userid: 1,
+                    username: "Antony Stark",
+                    morale: 1,
+                    stress: 4,
+                    workload: 2
+                },
+                {
+                    userid: 2,
+                    username: "Antony Stark",
+                    morale: 5,
+                    stress: 3,
+                    workload: 1
+                }
+            ]
+            return (
                 <>
-                    <div style={{textAlign: "center", fontSize: 18, marginBottom: 30, marginTop: 50}}>
+                    <div style={{ textAlign: "center", fontSize: 18, marginBottom: 30, marginTop: 50 }}>
                         <b>IMMEDIATE TEAM</b>
-                        <div style={{background: "yellow", padding: 4, marginInline: 760, marginTop: 20}}></div>
+                        <div style={{ background: "yellow", padding: 4, marginInline: 760, marginTop: 20 }}></div>
                     </div>
 
                     <OptionsPanel>
-                        <p style={{marginRight: 35}}>Morale</p>
-                        <p style={{marginRight: 25}}>Stress</p>
-                        <p style={{marginRight: 100}}>Workload</p>
+                        <p style={{ marginRight: 35 }}>Morale</p>
+                        <p style={{ marginRight: 25 }}>Stress</p>
+                        <p style={{ marginRight: 100 }}>Workload</p>
                     </OptionsPanel>
                     {propsC.map(prop =>
-                        <UserWithThreeStates prop={prop} key={prop.userid}/>
+                        <UserWithThreeStates prop={prop} key={prop.userid} />
                     )}
                 </>
             )
 
-            case 3: return (
-                <>
-                    <div style={{textAlign: "center", marginTop: 20}}>
-                        <Switches active={state === 1} onClick={() => {
-                            setState(1)
-                            setPropsAll(propsForAllPeriods)
-                        }}>
-                            Overall
-                        </Switches>
-                        <Switches active={state === 2} onClick={() => {
-                            setState(2)
-                            setPropsAll(propsForAllPeriodsM)
-                        }}>
-                            Morale
-                        </Switches>
-                        <Switches active={state === 3} onClick={() => {
-                            setState(3)
-                            setPropsAll(propsForAllPeriodsS)
-                        }}>
-                            Stress
-                        </Switches>
-                        <Switches active={state === 4} onClick={() => {
-                            setState(4)
-                            setPropsAll(propsForAllPeriodsW)
-                        }}>
-                            Workload
-                        </Switches>
-                        <div style={{textAlign: "center", fontSize: 18, marginBottom: 30, marginTop: 50}}>
-                            <b>EXTENDED TEAM AVERAGE</b>
-                            <div style={{background: "yellow", padding: 4, marginInline: 760, marginTop: 20}}></div>
-                        </div>
+        case 3: return (
+            <>
+                <div style={{ textAlign: "center", marginTop: 20 }}>
+                    <Switches active={state === 1} onClick={() => {
+                        setState(1)
+                        setPropsAll(propsForAllPeriods)
+                    }}>
+                        Overall
+                    </Switches>
+                    <Switches active={state === 2} onClick={() => {
+                        setState(2)
+                        setPropsAll(propsForAllPeriodsM)
+                    }}>
+                        Morale
+                    </Switches>
+                    <Switches active={state === 3} onClick={() => {
+                        setState(3)
+                        setPropsAll(propsForAllPeriodsS)
+                    }}>
+                        Stress
+                    </Switches>
+                    <Switches active={state === 4} onClick={() => {
+                        setState(4)
+                        setPropsAll(propsForAllPeriodsW)
+                    }}>
+                        Workload
+                    </Switches>
+                    <div style={{ textAlign: "center", fontSize: 18, marginBottom: 30, marginTop: 50 }}>
+                        <b>EXTENDED TEAM AVERAGE</b>
+                        <div style={{ background: "yellow", padding: 4, marginInline: 760, marginTop: 20 }}></div>
                     </div>
-                    <ReportsOlder state={state} props={propsAll} />
+                </div>
+                <ReportsOlder state={state} props={propsAll} />
 
-                </>
-            )
-            default: return (<div>Ups-ss...</div>)
+            </>
+        )
+        default: return (<div>Ups-ss...</div>)
 
-        }
+    }
 };
 
 export default ReportsWithThreeStates;
