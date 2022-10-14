@@ -81,7 +81,7 @@ const EditMember = () => {
             setModalMessage({
                 title: "Edit Leader(s)",
                 subtitle:
-                    "By default, the person who sent oyu the invite will receive your weekly report. You may also select the person you report to directly as an additional leader.",
+                    "By default, the person who sent you the invite will receive your weekly report. You may also select the person you report to directly as an additional leader.",
                 tip: "Pro Tip: You can change who sees your report in your profile settings.",
                 members
             });
@@ -89,7 +89,7 @@ const EditMember = () => {
         if (type === "member") {
             setModalMessage({
                 title: "Edit Member(s)",
-                subtitle: "By default, the person who sent oyu the invite will receive your weekly report. You may also select the person you report to directly as an additional leader.",
+                subtitle: "By default, the person who sent you the invite will receive your weekly report. You may also select the person you report to directly as an additional leader.",
                 tip: "Pro Tip: You can change whose reports to see in your profile settings",
                 members
             });
