@@ -22,7 +22,7 @@ const ReportsOlder = ({props}) => {
                 <Overall props={props}/>
                 <div style={{textAlign: "center", fontSize: 18, marginBottom: 30, marginTop: 50}}>
                     <b>EXTENDED TEAM</b>
-                    <div style={{background: "yellow", padding: 4, marginInline: 760, marginTop: 20}}></div>
+                    <div style={{background: "yellow", padding: 4, marginInline: 600, marginTop: 20}}></div>
                 </div>
                 <OlderPanel>
                     <p style={{marginRight: 30}}>9w ago</p>

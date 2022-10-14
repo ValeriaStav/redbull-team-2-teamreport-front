@@ -9,7 +9,7 @@ function* fetchPreviousReports() {
     const getReports = async () => axiosInstance.get('/api/Leader/previousperiod');
     const response = yield call(getReports);
     const responseData = response.data;
-    yield put({ type: 'FETCH_TEAM_REPORTS_SUCCESS', payload: responseData });
+    yield put({ type: 'FETCH_TEAM_REPORTS_SUCCESS', payload: { responseData } });
   } catch (error) {
     console.log('error', error);
   }
@@ -42,7 +42,6 @@ function* signin(action) {
     const response = yield call(signIn);
     const responseData = response.data;
     const decodedToken = jwt_decode(responseData);
-    console.log({ decodedToken })
     const {
       firstName,
       lastName,
@@ -176,56 +175,59 @@ function* editCompany(action) {
 }
 
 function* teamExtendedReports(action) {
-  // try {
-  //   const { reportTipe, id } = action.payload
-  //   let response = {}
+  try {
+    const { reportType, id } = action.payload
+    let response = {}
+    switch (reportType) {
+      case 'overall': {
+        response = yield call(axiosInstance.get, `/api/Leader/olderreports?id=${id}`)
+        break
+      }
 
-  //   switch (reportTipe) {
-  //     case 'overall': {
-  //       response = yield call(axiosInstance.get, `/api/Leader/olderreports?id=${id}`)
-  //     }
+      case 'morale': {
+        response = yield call(axiosInstance.get, `/api/Leader/olderreports/morale?id=${id}`)
+        break
+      }
 
-  //     case 'morale': {
-  //       response = yield call(axiosInstance.get, `/api/Leader/olderreports/morale?id=${id}`)
-  //     }
+      case 'stress': {
+        response = yield call(axiosInstance.get, `/api/Leader/olderreports/stress?id=${id}`)
+        break
+      }
 
-  //     case 'stress': {
-  //       response = yield call(axiosInstance.get, `/api/Leader/olderreports/stress?id=${id}`)
-  //     }
+      case 'workload': {
+        response = yield call(axiosInstance.get, `/api/Leader/olderreports/workload?id=${id}`)
+        break
+      }
 
-  //     case 'workload': {
-  //       response = yield call(axiosInstance.get, `/api/Leader/olderreports/workload?id=${id}`)
-  //     }
-
-  //     default:
-  //       break
-  //   }
-  //   const responseData = response.data;
-  //   yield put({ type: 'FETCH_TEAM_REPORTS_SUCCESS', payload: { data: { responseData } } });
-  // } catch (error) {
-  //   console.log('error', error);
-  // }
+      default:
+        break
+    }
+    const responseData = response.data;
+    yield put({ type: 'FETCH_TEAM_REPORTS_SUCCESS', payload: { responseData } });
+  } catch (error) {
+    console.log('error', error);
+  }
 }
 
 function* teamImmediateReports(action) {
   let response = {}
   try {
-    const { reportTipe, id } = action.payload
-    console.log("11111111111111111", reportTipe)
+    const { reportType, id } = action.payload
 
-    switch (reportTipe) {
+    switch (reportType) {
       case 'previous': {
         response = yield call(axiosInstance.get, `/api/Leader/previousperiod?id=${id}`)
+        break
       }
 
       case 'current': {
         response = yield call(axiosInstance.get, `/api/Leader/curentperiod?id=${id}`)
-      }
-      default:
         break
+      }
+      default: return
     }
     const responseData = response.data;
-    yield put({ type: 'FETCH_TEAM_REPORTS_SUCCESS', payload: { data: { responseData } } });
+    yield put({ type: 'FETCH_TEAM_REPORTS_SUCCESS', payload: { responseData } });
 
   } catch (error) {
     console.log(error)

@@ -2,11 +2,13 @@ import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Formik, ErrorMessage } from "formik";
 import { useDispatch, useSelector } from "react-redux";
+import  Select  from "react-select"
 
 import Header from "../../Components/Header";
 import { FlexCol } from "../../styles";
 import HelpButton from "../../Components/HelpButton";
 import FeedbackButton from "../../Components/FeedbackButton";
+import TeamMemberСircle from "../../Components/TeamMemberCircle"
 import validate, {
     moreThanTwo,
     startsFromCapitalize,
@@ -25,6 +27,7 @@ import {
     MemberIcon,
     Container,
     Divider,
+    MembersListWrapper
 } from "./styles";
 
 const stylesOverride = {
@@ -32,24 +35,45 @@ const stylesOverride = {
 };
 
 const EditMember = () => {
-    const { state: userId } = useLocation();
-    const [isOpen, setOpen] = useState(false);
+    const { state: userId } = useLocation()
+    const [isOpen, setOpen] = useState(false)
+    const [membersToRender, setMembersToRender] = useState([])
     const dispatch = useDispatch();
     const teamId = useSelector((state) => state.usersReducer.currentUserCommand)
     const members = useSelector((state) => state.teamReducer.members) || []
     const { firstName = '', lastName = '', title } = members?.length ? members.find(item => item.userId === userId) : {}
+    const link = `${window.location.origin}/team-member-registration?teamId=${teamId}`
     const [modalMessage, setModalMessage] = useState({
         title: "",
         subtitle: "",
         tip: "",
     });
+    const selectOptions = members.map((item) => ({
+        value: item.userId,
+        label: item.userName,
+    }))
 
     useEffect(() => {
         dispatch({ type: "FETCH_TEAM_MEMBERS", payload: { teamId } })
     }, [])
 
+    useEffect(() => {
+        if (members.length) {
+            setMembersToRender([...members])
+        }
+    }, [members])
+
     const handleSaveClick = (submitValues) => {
         dispatch({ type: "EDIT_USER", payload: { ...submitValues, userId, isOtherMember: true } })
+    }
+
+    const handleTeamMemberClick = (id) => {
+        setMembersToRender(membersToRender.filter((item) => item.userId !== id))
+    }
+
+    const handleSelectChange = (values) => {
+        if (membersToRender.findIndex((item) => item.userId === values.value) + 1) return
+        setMembersToRender([...membersToRender, members.find((item) => item.userId === values.value)])
     }
 
     const handleOpenModalClick = (type) => {
@@ -59,13 +83,15 @@ const EditMember = () => {
                 subtitle:
                     "By default, the person who sent oyu the invite will receive your weekly report. You may also select the person you report to directly as an additional leader.",
                 tip: "Pro Tip: You can change who sees your report in your profile settings.",
+                members
             });
         }
         if (type === "member") {
             setModalMessage({
                 title: "Edit Member(s)",
-                subtitle: "Some member stuff",
+                subtitle: "By default, the person who sent oyu the invite will receive your weekly report. You may also select the person you report to directly as an additional leader.",
                 tip: "Pro Tip: You can change whose reports to see in your profile settings",
+                members
             });
         }
         setOpen(true);
@@ -177,21 +203,43 @@ const EditMember = () => {
                         </form>
                     )}
                 </Formik>
-                <Divider>{firstName} reports to the following leaders:</Divider>
+                <div>
+                    <Divider>{firstName} reports to the following leaders:</Divider>
+                    <MembersListWrapper>
+                        {members.map((member) =>
+                            <TeamMemberСircle name={member.userName} />
+                        )}
+                    </MembersListWrapper>
+                </div>
                 <WhiteButton
                     onClick={() => handleOpenModalClick("leader")}
                     style={{ width: "200px" }}
                 >
                     Edit Leader(s)
                 </WhiteButton>
-                <Divider>The following members report to {firstName}:</Divider>
+                <div>
+                    <Divider>The following members report to {firstName}:</Divider>
+                    <MembersListWrapper>
+                        {members.map((member) =>
+                            <TeamMemberСircle name={member.userName} />
+                        )}
+                    </MembersListWrapper>
+                </div>
                 <WhiteButton
                     onClick={() => handleOpenModalClick("member")}
                     style={{ width: "200px" }}
                 >
                     Edit Member(s)
                 </WhiteButton>
-                <Divider>{firstName}'s invite link</Divider>
+                <div>
+                    <Divider>{firstName}'s invite link</Divider>
+                    <InputField
+                        placeholder='Invite Link'
+                        value={link}
+                        type='text'
+                    />
+                    <YellowButton onClick={() => { navigator.clipboard.writeText(link) }}> Copy Link</YellowButton>
+                </div>
                 {isOpen && (
                     <Modal setIsOpen={setOpen}>
                         <div
@@ -209,8 +257,20 @@ const EditMember = () => {
                         <div style={{ fontSize: "14px", marginTop: "20px" }}>
                             {modalMessage.tip}
                         </div>
-                        <InputField />
-                        <YellowButton>Save Changes</YellowButton>
+                        <div style={{ paddingTop: "5px" }}>
+                            <MembersListWrapper>
+                                {membersToRender?.map((member) =>
+                                    <TeamMemberСircle name={member.userName} key={member.userId} onClick={() => handleTeamMemberClick(member.userId)}/>
+                                )}
+                            </MembersListWrapper>
+                        </div>
+                        <Select
+                            onChange={handleSelectChange}
+                            isSearchable
+                            name="members"
+                            options={selectOptions}
+                        />
+                        <YellowButton style={{ marginTop: "10px" }}>Save Changes</YellowButton>
                     </Modal>
                 )}
             </Container>

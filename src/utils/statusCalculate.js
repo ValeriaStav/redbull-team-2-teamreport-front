@@ -23,7 +23,6 @@ export const statusCalculate = (props) =>
         counter[8] += prop.ago8 !== 0
         answer[9] += prop.ago9
         counter[9] += prop.ago9 !== 0
-        console.log(answer[9])
     }
     for (let i = 0; i < 10; i++){
         if(counter[i] !== 0)

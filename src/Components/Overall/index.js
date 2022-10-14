@@ -11,11 +11,11 @@ const Overall = ({props}) => {
     return (
         <UserPanel>
             <div style={{display: "flex", justifyContent: "space-between"}}>
-                <UserName>
+                <UserName style={{ marginTop: "13px"}}>
                     Overall
                 </UserName>
             </div>
-            <div style={{display: "flex",justifyContent: "space-between"}}>
+            <div style={{display: "flex",justifyContent: "space-between", marginLeft:"12px"}}>
                 <div style={{marginRight: 20}}><img src={emoji(forEmoji[9])} alt={unmarked}/></div>
                 <div style={{marginRight: 20}}><img src={emoji(forEmoji[8])} alt={unmarked}/></div>
                 <div style={{marginRight: 20}}><img src={emoji(forEmoji[7])} alt={unmarked}/></div>

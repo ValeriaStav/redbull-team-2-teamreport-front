@@ -7,6 +7,3 @@ const getInstance = axios.create({
 })
 
 export default getInstance
-
-
- // auth: `Bearer ${userToken}`,

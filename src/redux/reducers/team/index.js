@@ -28,11 +28,11 @@ const teamReducer = (state = initialState, action) => {
         }
 
         case 'FETCH_TEAM_REPORTS_SUCCESS': {
-            const { payload: { data } } = action
+            const { payload: { responseData } } = action
 
             return {
                 ...state,
-                teamReports: data.responseData
+                teamReports: responseData
             }
 
         }

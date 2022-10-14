@@ -10,9 +10,7 @@ const enhancers = [];
 const sagaMiddleware = createSagaMiddleware();
 const middleware = [sagaMiddleware];
 
-// if (typeof window.devToolsExtension === 'function') {
   enhancers.push(composeWithDevTools());
-// }
 
 const composedEnhancers = compose(
   applyMiddleware(...middleware),

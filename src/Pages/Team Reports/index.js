@@ -5,40 +5,26 @@ import ReportsWithThreeStates from "../../Components/ReportsWithThreeStates";
 import { useDispatch, useSelector } from 'react-redux';
 
 const TeamReports = () => {
-    const propsP = [
-        {
-            userid: 1,
-            username:"Antony Stark",
-            morale: 2,
-            stress: 4,
-            workload:2
-        },
-        {
-            userid: 2,
-            username:"Antony Stark",
-            morale: 2,
-            stress: 4,
-            workload:2
-        }
-    ]
     const [switcher, setSwitcher] = useState(1)
     const dispatch = useDispatch();
     const id = useSelector((state) => state.usersReducer.currentUserCommand)
+    const reports = useSelector((state) => state.teamReducer.teamReports)
+    const doesReportExist = reports.map((prop) => (prop.morale + prop.stress + prop.workload))
 
     useEffect(() => {
-        console.log("4cw3ws4tw", switcher)
         switch (switcher) {
             case 1:
-                dispatch({ type: "FETCH_IMMEDIATE_TEAM_REPORTS", payload: { id, reportTipe: 'previous' } })
-
+                dispatch({ type: "FETCH_IMMEDIATE_TEAM_REPORTS", payload: { id, reportType: 'previous' } })
+                break
             case 2:
-                dispatch({ type: "FETCH_IMMEDIATE_TEAM_REPORTS", payload: { id, reportTipe: 'current' } })
+                dispatch({ type: "FETCH_IMMEDIATE_TEAM_REPORTS", payload: { id, reportType: 'current' } })
+                break
 
             case 3:
-                dispatch({ type: "FETCH_EXTENDED_TEAM_REPORTS", payload: { id, reportTipe: 'overall' } })
+                dispatch({ type: "FETCH_EXTENDED_TEAM_REPORTS", payload: { id, reportType: 'overall' } })
+                break
 
             default: break
-
         }
     }, [switcher])
 
@@ -54,9 +40,9 @@ const TeamReports = () => {
                       {switcher !== 3 ?
                           <HeaderText>
                               Your team
-                              {propsP.length > 0
+                              {reports.length > 0
                                   ?
-                                  <b> has {propsP.length} reports </b>
+                                  <b> has {reports.length} reports </b>
                                   :
                                   <b> has not submitted </b>
                               }

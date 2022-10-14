@@ -1,10 +1,11 @@
 import React from 'react';
 import {upperLetters} from "../utils/upperLetters";
 
-const CircleWithLetters = ({prop}) => {
+const CircleWithLetters = ({name}) => {
+    const iterableName = name
     return (
         <p style={{color: "rgba(0,0,0,0.6)"}}>
-            {upperLetters(prop?.name.toString())}
+            {iterableName?.split(' ').reduce((acc, item) => acc + item[0], '')}
         </p>
     );
 };

@@ -13,10 +13,10 @@ const initialState = {
     }
 
     case 'FETCH_TEAM_REPORTS_SUCCESS': {
-      const { payload } = action;
+      const { payload: {responseData} } = action;
       return {
         ...state,
-        reports: payload,
+        reports: responseData,
         loading: false,
       };
     }
