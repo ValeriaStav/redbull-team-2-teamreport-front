@@ -12,7 +12,7 @@ const UserWithThreeStates = ({ prop }) => {
                 <GrayCircle>
                     <CircleWithLetters name={prop.userName || prop.name} />
                 </GrayCircle>
-                <div style={{flexDirection: "column", display: "flex", alignItems: "center"}}>
+                <div style={{flexDirection: "column", display: "flex", alignItems: "center", width: "208px"}}>
                 <UserName>
                     {prop.userName || prop.name}
                 </UserName>

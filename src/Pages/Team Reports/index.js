@@ -1,15 +1,16 @@
 import React, { useState, useEffect} from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+
+import ReportsWithThreeStates from "../../Components/ReportsWithThreeStates";
 import Header from "../../Components/Header";
 import { Switches, HeaderText} from "./styles"
-import ReportsWithThreeStates from "../../Components/ReportsWithThreeStates";
-import { useDispatch, useSelector } from 'react-redux';
+
 
 const TeamReports = () => {
     const [switcher, setSwitcher] = useState(1)
     const dispatch = useDispatch();
     const id = useSelector((state) => state.usersReducer.currentUserCommand)
     const reports = useSelector((state) => state.teamReducer.teamReports)
-    const doesReportExist = reports.map((prop) => (prop.morale + prop.stress + prop.workload))
 
     useEffect(() => {
         switch (switcher) {

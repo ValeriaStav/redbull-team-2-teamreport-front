@@ -16,11 +16,6 @@ import { Divider } from "../Edit Member/styles";
 
 import validate, { moreThanTwo } from "../../utils/validators";
 
-const companyMock = {
-    id: 1,
-    name: "ANKO Technology Corp",
-    date: "January 2020",
-};
 
 const stylesOverride = {
     border: "1px solid #ffcd29",

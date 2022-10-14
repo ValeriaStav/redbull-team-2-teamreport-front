@@ -87,8 +87,8 @@ const FillOutReport = (props) => {
             </Container>
 
       <Formik
-        onSubmit={sendForm}
-        initialValues={{
+          onSubmit={sendForm}
+          initialValues={{
           moraleDescription: "",
           stressDescription: "",
           workloadDescription: "",
@@ -351,6 +351,7 @@ const FillOutReport = (props) => {
                 <Select
                   options={weekOptions}
                   onChange={(opt) => setDateRange(opt.value)}
+                  style={{ width:"356px"}}
                 />
               </ContentWrapper>
               <ContentWrapper>
