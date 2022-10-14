@@ -1,4 +1,5 @@
 import React from "react";
+import { ToastContainer,  } from 'react-toastify';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import RoutesWithSideBar from "./Routes/RoutesWithSideBar";
 import { routesNoSideBar } from "./Routes/RoutesNoSideBar";
@@ -12,6 +13,7 @@ const App = () => {
                     <Route path="*" element={<RoutesWithSideBar />} />
                 </Routes>
             </Router>
+            <ToastContainer />
         </>
     );
 };

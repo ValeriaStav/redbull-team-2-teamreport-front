@@ -39,3 +39,9 @@ export const Divider = styled.div`
     font-weight: 800;
     text-transform: uppercase;
 `;
+
+export const MembersListWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    padding: 0 2px 8px 0;
+`

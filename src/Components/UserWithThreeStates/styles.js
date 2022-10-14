@@ -20,6 +20,7 @@ export const GrayCircle = styled.div`
 `
 export const UserName = styled.div`
   margin-left: 20px;
+  margin-right: 5px;
   font-weight: 600;
   font-size: 20px;
 `

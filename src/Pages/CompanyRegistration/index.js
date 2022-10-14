@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import PropTypes from "prop-types"
 import { useNavigate } from "react-router-dom"
 import { Formik, ErrorMessage } from "formik"
@@ -30,16 +30,15 @@ import Error from "../../Components/Error"
 
 const CompanyRegistration = (props) => {
   const navigate = useNavigate()
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
+  const userId = useSelector( (state) => state.usersReducer.currentUserId)
 
   const submit = (values) => {
-    navigate("/")
-    // dispatch({ type: "SEND_LOGIN_CREDENTIALS", value: { email, password } })
-    // Здесь диспатчить экшен с имейлом и паролем, а в саге, которая слушает этот экшен, отсылать аксиос запрос
+     dispatch({ type: "SIGNUP_COMPANY", payload: { teamName: values.companyName,userId, navigate } })
   }
 
-  const signIn = () => {
-    navigate("/login")
+  const back = () => {
+    navigate("/my-company")
   }
 
   return (
@@ -99,7 +98,7 @@ const CompanyRegistration = (props) => {
                     onChange={handleChange}
                   />
                   <ErrorMessage name='password' component={Error} />
-                  <SignInButton type='submit'>Sign Up</SignInButton>
+                  <SignInButton type='submit'>Sign Up Company</SignInButton>
                 </form>
               )}
             </Formik>
@@ -108,12 +107,12 @@ const CompanyRegistration = (props) => {
         <OverlayContainer>
           <StyledOverlay>
             <OverlayRightPanel>
-              <WhiteTitle>Welcome Back!</WhiteTitle>
+              <WhiteTitle>Create your company!</WhiteTitle>
 
               <StyledP>
-                To keep connected with us please login with your personal info
+                If you don't want to create a company, you can go back
               </StyledP>
-              <SignInButton onClick={signIn}>Sign In</SignInButton>
+              <SignInButton onClick={back}>Go Back</SignInButton>
             </OverlayRightPanel>
           </StyledOverlay>
         </OverlayContainer>

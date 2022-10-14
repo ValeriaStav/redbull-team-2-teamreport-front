@@ -1,11 +1,20 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
-import { Container, StyledLink, Logo, BottomContainer } from './styles'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { Container, StyledLink, Logo, BottomContainer, StyledButton } from './styles'
 import { AiFillSetting } from 'react-icons/ai'
 import { BiExit } from 'react-icons/bi'
+import { useDispatch } from 'react-redux'
 
 const Sidebar = props => {
   const location = useLocation()
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const handleSignout = () => {
+    localStorage.removeItem('userToken')
+    dispatch({ type: 'LOGOUT_USER' })
+    navigate("/login")
+  }
 
   return (
     <Container>
@@ -27,8 +36,7 @@ const Sidebar = props => {
       </StyledLink>
       <StyledLink
         active={
-          location.pathname.includes('/fill') ||
-          location.pathname.includes('/edit-member')
+          location.pathname.includes('/fill') 
         }
         to="/fill"
       >
@@ -39,24 +47,24 @@ const Sidebar = props => {
           Back to Elite
         </StyledLink>
 
-        <StyledLink active={         
+        <StyledLink active={
           location.pathname.includes('/my-company') ||
           location.pathname.includes('/edit-member')
         }
-        to="/my-company"
-      >
+          to="/my-company"
+        >
           My Company
         </StyledLink>
 
-        <StyledLink active={location.pathname === '/myprofile'} to="/myprofile">
+        <StyledLink active={location.pathname === '/my-profile'} to="/my-profile">
           <AiFillSetting />
           My Profile
         </StyledLink>
 
-        <StyledLink active={location.pathname === '/login'} to="/login">
+        <StyledButton active={location.pathname === '/login'} onClick={handleSignout}>
           <BiExit />
           Sign Out
-        </StyledLink>
+        </StyledButton>
       </BottomContainer>
     </Container>
   )
