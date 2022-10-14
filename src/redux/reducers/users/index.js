@@ -26,6 +26,18 @@ const initialState = {
   token: Boolean(localStorageToken) ? parsedToken : null,
 };
 
+const emptyState = {
+  currentUserId: '',
+  currentUserFirstName:  '',
+  currentUserLastName:  '',
+  currentUserEmail:  '',
+  currentUserTitle: '',
+  currentUserCommand: '',
+  currentUserCompanyName: '',
+  isLoggedIn: false,
+  token:  null,
+};
+
 const usersReducer = (state = initialState, action) => {
   switch (action.type) {
     case 'SIGN_IN_USER_SUCCESS': {
@@ -68,8 +80,9 @@ const usersReducer = (state = initialState, action) => {
     }
 
     case 'LOGOUT_USER': {
+      localStorage.removeItem('userToken')
       return {
-        ...initialState,
+        ...emptyState,
       }
     }
 

@@ -1,8 +1,8 @@
 import React from 'react';
-import {GrayCircle, UserName} from "../UserWithThreeStates/styles";
-import CircleWithLetters from "../CircleWithLetters";
+
 import {emoji} from "../../utils/emoji";
 import unmarked from "../../assets/unmarked.svg";
+import {GrayCircle, UserName} from "../UserWithThreeStates/styles";
 import {UserPanel} from "./styles";
 
 const UserWithOlderReports = ({prop}) => {
