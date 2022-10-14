@@ -1,6 +1,8 @@
 import { useEffect } from "react"
 
-import { Wrapper, Container, CloseIcon } from "./styles"
+import TeamMemberСircle from "../../Components/TeamMemberCircle"
+
+import { Wrapper, Container, CloseIcon, MembersListWrapper } from "./styles"
 
 const Modal = ({ children, setIsOpen }) => {
   const handleEscapeClick = ({ key }) => {

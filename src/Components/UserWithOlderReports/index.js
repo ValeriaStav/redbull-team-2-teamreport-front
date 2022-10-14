@@ -9,11 +9,9 @@ const UserWithOlderReports = ({prop}) => {
     return (
         <UserPanel>
             <div style={{display: "flex", justifyContent: "space-between"}}>
-                <GrayCircle>
-                    <CircleWithLetters username={prop}/>
-                </GrayCircle>
+
                 <UserName>
-                    {prop.username}
+                    {prop.userName || prop.name}
                 </UserName>
             </div>
             <div style={{display: "flex",justifyContent: "space-between"}}>

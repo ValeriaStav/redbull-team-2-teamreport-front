@@ -17,24 +17,24 @@ import { ColumnContainer, Container } from './styles'
 
 
 const RoutesWithSideBar = () => {
-  // const Route = props => <RouterRoute {...props} />
-
 
   return (
     <ColumnContainer className="RouterWrapper">
       <Sidebar />
       <Container>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/invite" element={<InviteYourTeam />} />
-          <Route path="/team-reports" element={<TeamReports />} />
-          <Route path="/my-company" element={<MyCompany />} />
-          <Route path="/my-company/:id" element={<SeeMembers />} />
-          <Route path="/reports" element={<MyReports />} />
-          <Route path="/edit-member/:id" element={<EditMember />} />
-          <Route path="/fill" element={<FillOutReport />} />
-          <Route path="/my-profile" element={<MyProfile />} />
-        </Routes>
+        <div style={{ paddingBottom: '100px', backgroundColor:' #f6f7f8'}}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/invite" element={<InviteYourTeam />} />
+            <Route path="/team-reports" element={<TeamReports />} />
+            <Route path="/my-company" element={<MyCompany />} />
+            <Route path="/my-company/:id" element={<SeeMembers />} />
+            <Route path="/reports" element={<MyReports />} />
+            <Route path="/edit-member/:id" element={<EditMember />} />
+            <Route path="/fill" element={<FillOutReport />} />
+            <Route path="/my-profile" element={<MyProfile />} />
+          </Routes>
+        </div>
       </Container>
     </ColumnContainer>
   )

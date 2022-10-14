@@ -21,6 +21,7 @@ const initialState = {
   currentUserEmail: tokenEmail || '',
   currentUserTitle: tokenTitle || '',
   currentUserCommand: tokenCompany || '',
+  currentUserCompanyName: '',
   isLoggedIn: Boolean(localStorageToken),
   token: Boolean(localStorageToken) ? parsedToken : null,
 };
@@ -55,6 +56,14 @@ const usersReducer = (state = initialState, action) => {
       return {
         ...state,
         currentUserCommand: company
+      }
+    }
+
+    case 'FETCH_COMPANY_DATA_SUCCESS': {
+      const { data } = action.payload;
+      return {
+        ...state,
+        currentUserCompanyName: data.teamName,
       }
     }
 

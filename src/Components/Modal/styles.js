@@ -32,3 +32,9 @@ export const CloseIcon = styled.div`
   font-size: 24px;
   cursor: pointer;
 `
+
+export const MembersListWrapper = styled.div`
+    display: flex;
+    flex-direction: row;
+    padding: 0 2px 8px 0;
+`

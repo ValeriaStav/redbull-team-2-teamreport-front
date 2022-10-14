@@ -44,17 +44,6 @@ export const Container = styled.div`
     }
 `;
 
-// export const Wrapper = styled.div`
-//     display: flex;
-//     flex-direction: row;
-//     justify-content: space-around;
-//     align-items: center;
-//     width: 65%;
-//     margin: auto;
-//     margin-top: 3rem;
-//     font-size: 1.1rem;
-//     padding: 30px;
-// `;
 
 export const HrShort = styled.hr`
     width: 45px;

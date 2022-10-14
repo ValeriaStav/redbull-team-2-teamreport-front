@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import PropTypes from "prop-types"
 import { useNavigate } from "react-router-dom"
 import { Formik, ErrorMessage } from "formik"
@@ -31,9 +31,10 @@ import Error from "../../Components/Error"
 const CompanyRegistration = (props) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const userId = useSelector( (state) => state.usersReducer.currentUserId)
 
   const submit = (values) => {
-     dispatch({ type: "SIGNUP_COMPANY", payload: { teamName: values.companyName, navigate } })
+     dispatch({ type: "SIGNUP_COMPANY", payload: { teamName: values.companyName,userId, navigate } })
   }
 
   const back = () => {

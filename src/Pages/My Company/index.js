@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Formik, ErrorMessage } from "formik"
 import { useDispatch, useSelector } from 'react-redux'
@@ -32,20 +32,25 @@ const stylesOverride = {
 const MyCompany = (props) => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const company = useSelector((state) => state.usersReducer.currentUserCommand)
+  const companyId = parseInt(useSelector((state) => state.usersReducer.currentUserCommand))
+  const companyName = useSelector((state) => state.usersReducer.currentUserCompanyName)
 
+  useEffect(() => {
+    dispatch({ type:"FETCH_COMPANY_DATA", payload: companyId })
+  }, [])
+  
   const showToastMessage = () => {
     toast.success('Your company has been successfully updated !', {
         position: toast.POSITION.BOTTOM_CENTER
     });
 };
     const handleSaveClick = (values) => {
-        dispatch({ type: "", payload: {} })
+        dispatch({ type: "EDIT_COMPANY_DATA", payload: { teamName: values.name, teamId: companyId  } })
         showToastMessage()
     };
 
     const handleSeeClick = () => {
-        navigate(`/my-company/${company}`);
+        navigate(`/my-company/${companyId}`);
     };
 
   const signUp = () => {
@@ -54,7 +59,7 @@ const MyCompany = (props) => {
 
   return (
     <FlexCol>
-      {!company? (
+      {!companyId? (
       <> 
       <Header
         Content={
@@ -74,22 +79,23 @@ const MyCompany = (props) => {
       <Header
         Content={
           <TitleContainer>
-            <Title>{companyMock.name}</Title>
-            <Subtitle>Joined {companyMock.date}</Subtitle>
+            <Title>{companyName}</Title>
+            <Subtitle>October 2022</Subtitle>
           </TitleContainer>
         }
       />
       <HelpButton />
       <FeedbackButton />
       <MembersContainer>
-        <h1>Edit {companyMock.name}'s Information</h1>
+        <h1>Edit {companyName}'s Information</h1>
         <span>You may do whatever you want here!</span>
-        <Divider>Rename {companyMock.name}</Divider>
+        <Divider>Rename {companyName}</Divider>
         <Formik
           onSubmit={handleSaveClick}
           initialValues={{
-            name: companyMock.name,
+            name: companyName,
           }}
+          enableReinitialize={true}
           validate={(values) =>
             validate([
               {
@@ -103,12 +109,11 @@ const MyCompany = (props) => {
           {({ values, handleSubmit, handleChange }) => (
             <form onSubmit={handleSubmit}>
               <InputField
-                name='title'
+                name='name'
                 label='Change company name.'
                 type='text'
                 onChange={handleChange}
                 initialValue={values.name}
-                component={InputField}
                 stylesOverride={stylesOverride}
               />
               <ErrorMessage name='title' component={Error} />
@@ -116,7 +121,7 @@ const MyCompany = (props) => {
             </form>
           )}
         </Formik>
-        <Divider>See a list of {companyMock.name}'s team members</Divider>
+        <Divider>See a list of {companyName}'s team members</Divider>
         <div style={{ margin: "10px 0 30px" }}>
           If you need to edit a particular team member, you can see a complete
           list of team members and visit their profile to make edits.

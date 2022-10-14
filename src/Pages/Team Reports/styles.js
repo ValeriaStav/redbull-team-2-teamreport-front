@@ -13,7 +13,7 @@ export const OlderPanel = styled.div`
   display: flex;
   justify-content: end;
   font-weight: bold;
-  margin-inline: 110px;
+  margin-inline: 65px;
   border-radius: 2px;
 `
 
