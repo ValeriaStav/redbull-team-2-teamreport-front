@@ -14,9 +14,21 @@ import {
     Button,
     Input,
 } from "./styles";
+import { Formik, ErrorMessage } from "formik";
+import { useNavigate } from "react-router-dom";
+import validate, {
+    moreThanTree,
+    lessThanHundred,
+    validEmail,
+    passwordRule,
+} from "../../utils/validators";
 
 const InviteYourTeam = () => {
     const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
+    const submit = (values) => {
+        navigate("/");
+    };
     return (
         <FlexCol>
             <Header Content={<HeaderText>Invite Your Team</HeaderText>} />
@@ -55,31 +67,87 @@ const InviteYourTeam = () => {
                         Don't worry! You'll be able to add more team members
                         later.
                     </p>
-                    <label for="exampleInputFirstName1" class="form-label">
-                        <strong>First Name</strong>
-                    </label>
-                    <Input
-                        type="text"
-                        class="form-control"
-                        aria-label="First name"
-                    />
-                    <label for="exampleInputLastName1" class="form-label">
-                        <strong>Last Name</strong>
-                    </label>
-                    <Input
-                        type="text"
-                        class="form-control"
-                        aria-label="Last name"
-                    />
-                    <label for="exampleInputEmail1" class="form-label">
-                        <strong>Email</strong>
-                    </label>
-                    <Input
-                        type="email"
-                        class="form-control"
-                        id="exampleInputEmail1"
-                        aria-describedby="emailHelp"
-                    />
+                    <Formik
+                        onSubmit={submit}
+                        initialValues={{
+                            firstName: "",
+                            lastName: "",
+                            email: "",
+                        }}
+                        validate={(values) =>
+                            validate([
+                                {
+                                    name: "firstName",
+                                    value: values.firstName,
+                                    functions: [moreThanTree, lessThanHundred],
+                                },
+                                {
+                                    name: "lastName",
+                                    value: values.lastName,
+                                    functions: [moreThanTree, lessThanHundred],
+                                },
+                                {
+                                    name: "email",
+                                    value: values.email,
+                                    functions: validEmail,
+                                },
+                            ])
+                        }
+                    >
+                        {({ values, handleSubmit, handleChange }) => (
+                            <form onSubmit={handleSubmit}>
+                                <label
+                                    for="exampleInputFirstName1"
+                                    class="form-label"
+                                >
+                                    <strong>First Name</strong>
+                                </label>
+                                <Input
+                                    type="text"
+                                    class="form-control"
+                                    aria-label="First name"
+                                    name="firstName"
+                                    onChange={handleChange}
+                                />
+                                <ErrorMessage
+                                    name="firstName"
+                                    component={Error}
+                                />
+                                <label
+                                    for="exampleInputLastName1"
+                                    class="form-label"
+                                >
+                                    <strong>Last Name</strong>
+                                </label>
+                                <Input
+                                    type="text"
+                                    class="form-control"
+                                    aria-label="Last name"
+                                    name="lastName"
+                                    onChange={handleChange}
+                                />
+                                <ErrorMessage
+                                    name="firstName"
+                                    component={Error}
+                                />
+                                <label
+                                    for="exampleInputEmail1"
+                                    class="form-label"
+                                >
+                                    <strong>Email</strong>
+                                </label>
+                                <Input
+                                    type="email"
+                                    class="form-control"
+                                    id="exampleInputEmail1"
+                                    aria-describedby="emailHelp"
+                                    name="email"
+                                    onChange={handleChange}
+                                />
+                                <ErrorMessage name="email" component={Error} />
+                            </form>
+                        )}
+                    </Formik>
                     <Button onClick={() => setOpen(true)}>Invite</Button>
                 </AccordionContent>
             </AccordionItem>
