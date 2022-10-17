@@ -15,6 +15,6 @@ describe("HomePage", () => {
         expect(screen.queryByRole("list")).toBeNull();
     });
     it("should render the page", () => {
-        const { container } = render(<HomePage />);
+        const  container  = render(<HomePage />);
     });
 });

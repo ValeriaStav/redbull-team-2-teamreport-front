@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent, user } from "@testing-library/react";
-import InviteYourTeam from "../src/Pages/Invite Your Team/index";
+import InviteYourTeam from "../src/Pages/Invite Your Team";
 
 describe("InviteYourTeam", () => {
     it("renders InviteYourTeam component", () => {
@@ -63,4 +63,5 @@ screen.getByRole("");
 it("should render the InviteYourTeam page", () => {
 const { container } = render(<InviteYourTeam />);
 render(<InviteYourTeam />);
-screen.getByRole("button", { name: /Invite/i });
+screen.getByRole("button", { name: /Invite/i });})
+
